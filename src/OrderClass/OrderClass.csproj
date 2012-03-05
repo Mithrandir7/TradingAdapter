@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2ECDA9C4-1B9B-4C59-AFD0-3634C6CC10ED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OrderClass</RootNamespace>
+    <AssemblyName>OrderClass</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common">
+      <HintPath>..\..\lib\redis\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\..\lib\redis\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>..\..\lib\redis\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\lib\redis\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behavior\DayTrade.cs" />
+    <Compile Include="Behavior\Hardstop.cs" />
+    <Compile Include="Behavior\ProfitTake.cs" />
+    <Compile Include="Behavior\Protector.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderCmd.cs" />
+    <Compile Include="OrderManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedisOrderCmdHandler.cs" />
+    <Compile Include="RedisOrderTrackingHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccountClass\AccountClass.csproj">
+      <Project>{404C8926-80F8-40F6-9C28-47A467F3C888}</Project>
+      <Name>AccountClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OrderInformation\OrderInformation.csproj">
+      <Project>{DFC2A38A-6EFC-43CD-8019-7D6104EF4928}</Project>
+      <Name>OrderInformation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuoteManager\DataManager.csproj">
+      <Project>{785FA548-66D6-4B97-B0F2-F0A9D32398EB}</Project>
+      <Name>DataManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SymbolClass\SymbolClass.csproj">
+      <Project>{C0E3F18D-7577-4210-B479-205725F90E6D}</Project>
+      <Name>SymbolClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TradeManager\TradeManager.csproj">
+      <Project>{AB70DC3C-4F34-4122-B236-FDAFE28C01E5}</Project>
+      <Name>TradeManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserkeyManager\UserkeyManager.csproj">
+      <Project>{C29DD967-7B4B-455E-92F2-5443AC40F00E}</Project>
+      <Name>UserkeyManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UtilityClass\UtilityClass.csproj">
+      <Project>{07199B31-5D4A-4F50-9AB6-3F9992370262}</Project>
+      <Name>UtilityClass</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

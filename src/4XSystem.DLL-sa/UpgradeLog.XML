@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="4XSystem.DLL-sa">
+</Property><Property Name="Solution File" Value="D:\WorkPlace\csharp\4XSystem.DLL-sa\4XSystem.DLL-sa.sln">
+</Property><Property Name="Date" Value="2011年12月2日">
+</Property><Property Name="Time" Value="11:47">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="4XSystem.DLL-sa.sln" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\4XSystem.DLL-sa.sln">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="4XSystem.DLL-sa.csproj" Description="Project file successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\4XSystem.DLL-sa.csproj">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="4XSystem.DLL-sa.csproj.user" Description="Project user file successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\4XSystem.DLL-sa.csproj.user">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="4XSystem.DLL.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\4XSystem.DLL.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="ANN.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\ANN.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="AssemblyInfo.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="CandlePatterns.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\CandlePatterns.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_Bollinger1.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_Bollinger1.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_CandleSystem.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_CandleSystem.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_DerivativesSystem.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_DerivativesSystem.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_IndicatorDump.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_IndicatorDump.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_PercentageChange.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_PercentageChange.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_RandomFixed.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_RandomFixed.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_RandomMomentum.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_RandomMomentum.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_RandomTrailing.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_RandomTrailing.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_StochRSISystem.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_StochRSISystem.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_StubSystem.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_StubSystem.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_TrendAndTrailingStop.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_TrendAndTrailingStop.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_UnitTests.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_UnitTests.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_WoodiesCCI.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_WoodiesCCI.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="fs_XChannel.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\fs_XChannel.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="IndicatorDump.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\IndicatorDump.cs">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="Indicators.cs" Description="File successfully backed up as D:\WorkPlace\csharp\4XSystem.DLL-sa\Backup\Indicators.cs">
+</Event><Event ErrorLevel="1" Project="4XSystem.DLL-sa" Source="4XSystem.DLL-sa.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="4XSystem.DLL-sa.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="4XSystem.DLL-sa" Source="4XSystem.DLL-sa.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="4XSystem.DLL-sa.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="4XSystem.DLL-sa.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="4XSystem.DLL-sa" Source="4XSystem.DLL-sa.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
