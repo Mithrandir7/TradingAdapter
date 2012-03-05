@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using ServiceStack.Redis.Generic;
 using ServiceStack.Redis;
+using System.Windows.Forms;
 
 namespace UtilityClass
 {
     public class RedisUtil
     {
+        private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static RedisUtil Instance = new RedisUtil();
 
@@ -21,18 +23,30 @@ namespace UtilityClass
 
         private RedisUtil()
         {
-            redisClient = new RedisClient();
-
+            redisClient = new RedisClient();            
+   
         }
 
         public List<String> search(String searchStr)
         {
-            List<String> lrtn = redisClient.SearchKeys(searchStr);
+            List<String> lrtn = null;
+
+            try
+            {
+                lrtn = redisClient.SearchKeys(searchStr);
+                
+            }
+            catch (RedisException e)
+            {
+                logger.Info(e.Message);
+                MessageBox.Show(e.Message);
+            }
 
             if (lrtn == null)
             {
                 lrtn = new List<string>();
             }
+            
 
             return lrtn;
         }
