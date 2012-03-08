@@ -7,11 +7,13 @@ namespace AccountClass
 {
     public class AccountManager
     {
-        private static List<string> accountFingerPrint = new List<string>();
+        private List<string> accountFingerPrint = new List<string>();
 
-        private static Dictionary<string, Account> accounts = new Dictionary<string, Account>();
+        private Dictionary<string, Account> accounts = new Dictionary<string, Account>();
 
-        public static void add(Account aAccount)
+        public static AccountManager Instance = new AccountManager();
+
+        public void add(Account aAccount)
         {
             if (!accounts.ContainsKey(aAccount.account))
             {
@@ -19,7 +21,7 @@ namespace AccountClass
             }
         }
 
-        public static void addPosition(Position aPosition)
+        public void addPosition(Position aPosition)
         {
             if (accounts.ContainsKey(aPosition.account))
             {
@@ -27,28 +29,38 @@ namespace AccountClass
             }
         }
 
-        public static void clear()
+        public void clear()
         {
             accounts.Clear();
         }
 
-        public static Dictionary<string, Account> getAccounts()
+        public  Dictionary<string, Account> getAccounts()
         {
             return accounts;
         }
 
-        private static bool isRealTrade = false;
-        private static string realAccount = "880937";
+        private bool isRealTrade = false;
+        private string realAccount = "880937";
 
-        static AccountManager()
+        private AccountManager()
         {
+            
+        }
+
+        public void init()
+        {
+            foreach (String ac in AccountXmlReader.Instance.getAccountList())
+            {
+                accountFingerPrint.Add(ac);
+            }
+
             if (isRealTrade)
             {
                 accountFingerPrint.Add(realAccount);
             }
         }
 
-        public static void setFingerPrint(List<string> aFP)
+        public void setFingerPrint(List<string> aFP)
         {
             foreach (string lstr in aFP)
             {
@@ -56,7 +68,7 @@ namespace AccountClass
             }
         }
 
-        public static List<string> getAllValidAccount()
+        public  List<string> getAllValidAccount()
         {
             List<string> lrtn = new List<string>();
             foreach (string lstr in accounts.Keys)
@@ -70,7 +82,7 @@ namespace AccountClass
         }
 
 
-        public static List<string> getAccountByPattern(string aPattern)
+        public  List<string> getAccountByPattern(string aPattern)
         {
             List<string> lrtn = new List<string>();
             foreach (string lstr in accounts.Keys)
@@ -83,7 +95,7 @@ namespace AccountClass
             return lrtn;
         }
 
-        public static bool isRealAccount(string aAccount)
+        public  bool isRealAccount(string aAccount)
         {
             if (String.Compare(aAccount, realAccount) == 0)
             {
@@ -95,7 +107,7 @@ namespace AccountClass
             }
         }
 
-        public static bool isValidAccount(string aAccount)
+        public  bool isValidAccount(string aAccount)
         {
             foreach (string lstr in accountFingerPrint)
             {

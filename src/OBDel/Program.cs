@@ -13,7 +13,7 @@ namespace OBDel
         {
 
 
-            List<string> slist = SymbolManager.getAbbrnameList();
+            List<string> slist = SymbolManager.Instance.getAbbrnameList();
             foreach (string lid in slist)
             {
             //String symbol = "if";
@@ -21,7 +21,7 @@ namespace OBDel
                 paths.loadData(lid);
                 OBDelta odel = new OBDelta(paths, 2);
                 double [] delQ = odel.getMaxDel();
-                Console.WriteLine("{0},{1:F2},{2:F2}", lid, delQ[0] / SymbolManager.getTickSize(lid), delQ[1] / SymbolManager.getTickSize(lid));
+                Console.WriteLine("{0},{1:F2},{2:F2}", lid, delQ[0] / SymbolManager.Instance.getTickSize(lid), delQ[1] / SymbolManager.Instance.getTickSize(lid));
             }                 
 
 

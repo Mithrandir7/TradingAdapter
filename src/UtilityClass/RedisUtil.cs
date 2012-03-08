@@ -6,11 +6,14 @@ using ServiceStack.Redis.Generic;
 using ServiceStack.Redis;
 using System.Windows.Forms;
 
+
 namespace UtilityClass
 {
     public class RedisUtil
     {
         private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        
 
         public static RedisUtil Instance = new RedisUtil();
 
@@ -19,11 +22,17 @@ namespace UtilityClass
             return new RedisUtil();
         }
 
+        public static RedisClient getRedisClientInstance()
+        {
+            return new RedisClient(RedisConfig.Instance.host,RedisConfig.Instance.port);
+        }
+
+        
         private RedisClient redisClient;        
 
         private RedisUtil()
         {
-            redisClient = new RedisClient();            
+            redisClient = new RedisClient(RedisConfig.Instance.host, RedisConfig.Instance.port);            
    
         }
 

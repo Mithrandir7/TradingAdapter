@@ -15,7 +15,11 @@ namespace AccountClass
         {
 
         }
-        
+
+        ~RedisAccountHandler()
+        {
+            RedisAccountHandler.Instance.clear();
+        }
 
         public void push(Account aAccount)
         {

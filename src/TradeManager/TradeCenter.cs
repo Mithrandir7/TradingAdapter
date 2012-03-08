@@ -284,7 +284,7 @@ namespace TradeManager
 
         public void updateMargin()
         {
-            AccountManager.clear();
+            AccountManager.Instance.clear();
             RedisAccountHandler.Instance.clear();
             tc.QueryInfo(2, "");
         }
@@ -345,7 +345,7 @@ namespace TradeManager
 
             targetType = "F";
 
-            if (AccountManager.isRealAccount(strAccount))
+            if (AccountManager.Instance.isRealAccount(strAccount))
             {
                 priceFlag = "L";
                 orderType = "R";

@@ -95,7 +95,7 @@ namespace SymbolClass
 
             aAbbrname = aAbbrname.Trim().ToLower();
 
-            if (AccountManager.isRealAccount(aAccount))
+            if (AccountManager.Instance.isRealAccount(aAccount))
             {
                 if (abbr2Symbol.ContainsKey(aAbbrname))
                 {

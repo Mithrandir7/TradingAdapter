@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ServiceStack.Redis.Generic;
-using ServiceStack.Redis;
 using System.Threading;
 using AccountClass;
+using UtilityClass;
+using ServiceStack.Redis.Generic;
+using ServiceStack.Redis;
 
 namespace OrderClass
 {
@@ -25,7 +26,7 @@ namespace OrderClass
 
         public void init()
         {
-            redisClient = new RedisClient();
+            redisClient = RedisUtil.getRedisClientInstance();
             ThreadPool.QueueUserWorkItem(new WaitCallback(doSub)); 
         }
 
@@ -133,7 +134,7 @@ namespace OrderClass
                     return false;
                 }
 
-                if (!AccountClass.AccountManager.isValidAccount(aCmd.account))
+                if (!AccountClass.AccountManager.Instance.isValidAccount(aCmd.account))
                 {
                     return false;
                 }

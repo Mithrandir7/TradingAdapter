@@ -24,7 +24,7 @@ namespace PositionClass
 
         private void onPosition(Position aPosition)
         {
-            AccountManager.addPosition(aPosition);
+            AccountManager.Instance.addPosition(aPosition);
         }
 
 

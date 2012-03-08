@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{07199B31-5D4A-4F50-9AB6-3F9992370262}</ProjectGuid>
+    <ProjectGuid>{ECE0E41A-D6EE-4577-A31F-84F14E71B0F5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UtilityClass</RootNamespace>
-    <AssemblyName>UtilityClass</AssemblyName>
+    <RootNamespace>TCMonitor</RootNamespace>
+    <AssemblyName>TCMonitor</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,18 +34,6 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common">
-      <HintPath>..\..\lib\redis\ServiceStack.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\lib\redis\ServiceStack.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Redis">
-      <HintPath>..\..\lib\redis\ServiceStack.Redis.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\lib\redis\ServiceStack.Text.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -56,16 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DateTimeFunc.cs" />
-    <Compile Include="Misc.cs" />
+    <Compile Include="TouchanceMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedisConfig.cs" />
-    <Compile Include="RedisUtil.cs" />
+    <Compile Include="TouchanceXmlReader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="redis.xml">
+    <Content Include="touchance.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityClass\UtilityClass.csproj">
+      <Project>{07199B31-5D4A-4F50-9AB6-3F9992370262}</Project>
+      <Name>UtilityClass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

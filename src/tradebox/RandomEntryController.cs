@@ -36,8 +36,6 @@ namespace tradebox
         public void init()
         {
             configuration();
-            AccountManager.setFingerPrint(accounts);
-            showAccount();
             QuoteAdapter.Instant.addOnTickAction(OnTick);
             channelName = RedisOrderCmdHandler.Instance.getChannelname();
             todayYYYYMMDD = UtilityClass.DateTimeFunc.getYYYYMMDD();
@@ -161,13 +159,6 @@ namespace tradebox
             }
         }
 
-        private void showAccount()
-        {
-            foreach (string lstr in accounts)
-            {
-                logger.Info("showAccount : " + lstr);
-            }
-        }
 
     }
 }

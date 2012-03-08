@@ -23,7 +23,7 @@ namespace MarginClass
 
         private void onMarginReport(Account aAccount)
         {
-            AccountManager.add(aAccount);
+            AccountManager.Instance.add(aAccount);
             RedisAccountHandler.Instance.push(aAccount);
         }
 

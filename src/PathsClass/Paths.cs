@@ -31,7 +31,7 @@ namespace PathsClass
 
         public void loadData(string symbol)
         {
-            string filename = SymbolManager.getHistoricalFilename(symbol);
+            string filename = SymbolManager.Instance.getHistoricalFilename(symbol);
 
             //Console.WriteLine("Load data from " + filename);
 
