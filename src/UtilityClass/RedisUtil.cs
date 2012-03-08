@@ -49,6 +49,7 @@ namespace UtilityClass
             {
                 logger.Info(e.Message);
                 MessageBox.Show(e.Message);
+                Environment.Exit(1);
             }
 
             if (lrtn == null)

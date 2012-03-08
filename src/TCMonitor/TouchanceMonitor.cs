@@ -27,6 +27,7 @@ namespace TCMonitor
 
         ~TouchanceMonitor()
         {
+            
             if (TouchanceXmlReader.Instance.closedTCOnExit)
             {
                 closeTouchance();

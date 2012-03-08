@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<redis-servers>
-  <redis-server host="localhost" port="6379" />
-</redis-servers>
+<redis-config>
+  <redis-servers>
+    <redis-server host="localhost" port="6379" />
+  </redis-servers>
+  <saveQuoteOnServer value="false" />
+</redis-config>

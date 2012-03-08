@@ -10,25 +10,21 @@ namespace DataManager
 
         private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private bool isSaveQuoteData = true;
-
         private int yyyymmdd = DateTimeFunc.getYYYYMMDD();
 
         private RedisUtil redisUtility;
+
+        private bool isSaveQuoteData;
 
         public static RedisQuoteDataHandler Instance = new RedisQuoteDataHandler();
 
         private RedisQuoteDataHandler()
         {
             redisUtility = RedisUtil.getNewInstance();
-            configuration();
+            isSaveQuoteData = UtilityClass.RedisConfig.Instance.isSaveQuoteOnServer;
         }
 
-        private void configuration()
-        {
-            //String lsaveCfg = ConfigurationManager.AppSettings["isSaveQuote"].ToUpper().Trim();
-            logger.Info("RedisQuoteDataHandler : isSaveQuote = " + isSaveQuoteData);
-        }
+
 
         public void insertQuote(string symbol, int hhmmss, double hi, double lo, int vol, int oi)
         {

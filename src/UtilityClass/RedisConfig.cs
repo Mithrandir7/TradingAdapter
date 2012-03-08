@@ -16,6 +16,7 @@ namespace UtilityClass
 
         public String host = "localhost";
         public int port = 6793;
+        public bool isSaveQuoteOnServer = false;
 
         private RedisConfig(){
             init();
@@ -35,7 +36,9 @@ namespace UtilityClass
 
             host = reader.GetAttribute("host");
             port = int.Parse(reader.GetAttribute("port"));
-            
+
+            reader.ReadToFollowing("saveQuoteOnServer");
+            isSaveQuoteOnServer = bool.Parse(reader.GetAttribute("value"));
         }
 
 

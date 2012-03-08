@@ -38,6 +38,7 @@ namespace tradebox
             TouchanceMonitor.Instance.init();
             TouchanceMonitor.Instance.ifTouchanceNotExistCloseApplication();
 
+            TradeboxXmlReader.Instance.init();
             SymbolManager.Instance.init();
             AccountManager.Instance.init();
             QuoteAdapter.Instant.init();
@@ -49,22 +50,30 @@ namespace tradebox
             RandomEntryController.Instance.init();
          
             logger.Info("Working Directory : " + Misc.getWorkingDirectory());
+
+            if (TradeboxXmlReader.Instance.isAutoShutdown)
+            {
+                setAutoShutdownTimer();
+            }
         }
 
-
+        private void setAutoShutdownTimer()
+        {
+            System.Timers.Timer myTimer = new System.Timers.Timer();
+            myTimer.Elapsed += new ElapsedEventHandler(AutoShutdownTask);
+            myTimer.Interval = 30 * 60000;
+            myTimer.Start();
+        }
 
         private void tradebox_Load(object sender, EventArgs e)
         {
-            System.Timers.Timer myTimer = new System.Timers.Timer();
-            myTimer.Elapsed += new ElapsedEventHandler( StopCheck );
-            myTimer.Interval = 30*60000;
-            myTimer.Start();            
+           
         }
 
-        private void StopCheck( object source, ElapsedEventArgs e )
+        private void AutoShutdownTask( object source, ElapsedEventArgs e )
         {
             int lhhmmss = DateTimeFunc.getHHMMSS();
-            if (lhhmmss > 153000)
+            if (lhhmmss > TradeboxXmlReader.Instance.autoShutdownTime)
             {
                 Environment.Exit(0);                
             }            

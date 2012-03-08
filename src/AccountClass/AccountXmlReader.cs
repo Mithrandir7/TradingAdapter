@@ -58,7 +58,7 @@ namespace AccountClass
                         String aName = reader.Name;
                         String aValue = reader.Value;
                         aTable.put(aName, aValue);
-                        MessageBox.Show(account + ":" + aName + ":" + aValue);
+                        //MessageBox.Show(account + ":" + aName + ":" + aValue);
                     }
                     attributeTables.Add(account, aTable);
                 }
