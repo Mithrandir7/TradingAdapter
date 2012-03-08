@@ -13,6 +13,7 @@ namespace OrderClass
     {
         private Order order;
         private bool isEnable = false;
+        private int daytradeHHMMSS;
 
         public DayTrade(Order aOrder)
         {
@@ -21,7 +22,32 @@ namespace OrderClass
 
         public void enable()
         {
+            initPar();
             isEnable = true;
+        }
+
+        private void initPar()
+        {
+            daytradeHHMMSS = SymbolManager.Instance.getDayTradeExitHHMMSS(order.getAbbrName());
+
+            //overwrite by account.xml
+            String account = order.getOrderInfo().account;
+
+            String daytradeHHMMSSStr =
+                AccountClass.AccountXmlReader.Instance.getAccountAttribute(account, "daytradeExitTime");
+
+            if (String.Compare(daytradeHHMMSSStr, "") != 0)
+            {
+                try
+                {
+                    daytradeHHMMSS = int.Parse(daytradeHHMMSSStr);
+
+                }
+                catch (FormatException e)
+                {
+                    daytradeHHMMSS = SymbolManager.Instance.getDayTradeExitHHMMSS(order.getAbbrName());
+                }
+            }
         }
 
         public string getParStr()
@@ -38,7 +64,8 @@ namespace OrderClass
 
             if (order.getState() == OrderState.Filled)
             {
-                int daytradeHHMMSS = SymbolManager.Instance.getDayTradeExitHHMMSS(order.getAbbrName());
+                
+
                 if (Convert.ToInt32(aTick.time) > daytradeHHMMSS)
                 {
                     order.closingOrder("Daytrade");

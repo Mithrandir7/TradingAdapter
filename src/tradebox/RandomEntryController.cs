@@ -35,7 +35,7 @@ namespace tradebox
 
         public void init()
         {
-            configuration();
+            accounts = AccountXmlReader.Instance.getAccountList();
             QuoteAdapter.Instant.addOnTickAction(OnTick);
             channelName = RedisOrderCmdHandler.Instance.getChannelname();
             todayYYYYMMDD = UtilityClass.DateTimeFunc.getYYYYMMDD();
@@ -144,20 +144,7 @@ namespace tradebox
             }
         }
 
-        private void configuration()
-        {
-            String laccounts = ConfigurationManager.AppSettings["accounts"].ToUpper().Trim();
-            logger.Info("configuration : isCloseTc = " + laccounts);
-
-            string[] lacs = laccounts.Split(';');
-            if (lacs.Length > 0)
-            {
-                for (int idx = 0; idx < lacs.Length; idx++)
-                {
-                    accounts.Add(lacs[idx].Trim());
-                }
-            }
-        }
+        
 
 
     }

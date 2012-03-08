@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <accounts>
-  <account value="1999_2-0000049" />
+  <account value="1999_2-0000049" daytradeExitTime="151400" />
   <account value="1999_2-0000051" />
 </accounts>

@@ -69,24 +69,20 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ImslCS">
-      <HintPath>C:\Program Files (x86)\VNI\imsl\imslcs500\bin\ImslCS.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
-      <HintPath>..\log4net.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common">
-      <HintPath>..\..\lib\redis\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\..\lib\redis\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\lib\redis\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\..\lib\redis\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Redis">
-      <HintPath>..\..\lib\redis\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\..\..\lib\redis\ServiceStack.Redis.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\lib\redis\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\..\lib\redis\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration">
@@ -103,9 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OIChart.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="OIChart.cs" />
     <Compile Include="Encription.cs" />
     <Compile Include="RandomEntryController.cs" />
     <Compile Include="tradebox.cs">
