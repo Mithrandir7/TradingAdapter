@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OrderInformation;
 
 namespace OrderClass
 {
     public class OrderManager
     {
+        private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        
         public static OrderManager Instance = new OrderManager();
 
         private Dictionary<int, Order> orders = new Dictionary<int, Order>();
@@ -19,7 +23,7 @@ namespace OrderClass
         public void init()
         {
             RedisOrderCmdHandler.Instance.init();
-            RedisOrderTrackingHandler.Instance.init();
+            loadOrderFromRedis();
         }
 
         public bool isOrderIDExist(int aOrderID)
@@ -35,9 +39,11 @@ namespace OrderClass
         public void push(OrderCmd aCmd)
         {
             Order order;
-            if (orders.ContainsKey(aCmd.orderid))
+            if (orders.ContainsKey(aCmd.orderInfo.orderId))
             {
-                order = orders[aCmd.orderid];
+                // order alreday exist
+                logger.Info("push:orderIdExist:"+aCmd.orderInfo.orderId);
+                order = orders[aCmd.orderInfo.orderId];
                 //orderid, account, symbol, and position can not change   
                 if (aCmd.closed)
                 {
@@ -50,37 +56,84 @@ namespace OrderClass
             }
             else
             {
-                order = new Order(aCmd.orderid,aCmd.account,aCmd.symbol,aCmd.position);
-                orders.Add(aCmd.orderid,order);
+                logger.Info("push:nreOrderId:" + aCmd.orderInfo.orderId);
+                // create new order
+                OrderTrackingInfo orderTrackingInfo = new OrderTrackingInfo(OrderState.WaitingSubmit);
+                orderTrackingInfo.orderId = aCmd.orderInfo.orderId;
+
+                order = new Order(aCmd.orderInfo, orderTrackingInfo, aCmd.orderBehaviorParameters);
+                addOrder(order);
                 updateOrder(order, aCmd);
                 order.active();
-                order.fireOrder("OrderCmdRecieved");
-                // new order can not closed
+                order.fireOrder("NewOrderCmdRecieved");    
             }                        
+        }
+
+        public void loadOrderFromRedis()
+        {
+            List<int> orderIdList = getOrderIdListFromRedisDB();
+
+            foreach (int aId in orderIdList)
+            {
+                OrderInfo orderInfo = new OrderInfo();
+                orderInfo.loadFromRedis(aId);
+
+                OrderTrackingInfo orderTrackingInfo = new OrderTrackingInfo();
+                orderTrackingInfo.loadFromRedis(aId);
+
+                OrderBehaviorParameters orderBehaviorParameters = new OrderBehaviorParameters();
+                orderBehaviorParameters.loadFromRedis(aId);
+
+                Order order = new Order(orderInfo, orderTrackingInfo, orderBehaviorParameters);
+                if (orderTrackingInfo.orderState == OrderState.Filled)
+                {
+                    order.active();
+                }
+                addOrder(order);
+            }
+        }
+
+        private List<int> getOrderIdListFromRedisDB()
+        {
+            List<String> ol = UtilityClass.RedisUtil.Instance.search("OrderId:*");
+            List<int> lrtn = new List<int>();
+            foreach (String str in ol)
+            {
+                lrtn.Add(int.Parse(str.Split(':')[1]));
+            }
+            return lrtn;
+        }
+
+
+        private void addOrder(Order order)
+        {
+            orders.Add(order.getOrderID(), order);
+            UtilityClass.RedisUtil.Instance.set("OrderId:" + order.getOrderID().ToString().Trim(), "");
         }
 
         private void updateOrder(Order order, OrderCmd aCmd)
         {
             // set hardstop
-            if (aCmd.hardstop > 0)
+            if (aCmd.orderBehaviorParameters.hardstop > 0)
             {
-                order.invokeHardstop(aCmd.hardstop);
+                order.invokeHardstop(aCmd.orderBehaviorParameters.hardstop);
             }
             // set daytrade
-            if (aCmd.daytrade)
+            if (aCmd.orderBehaviorParameters.daytrade)
             {
                 order.invokeDayTrade();
             }
             // set profit take
-            if (aCmd.profittakepercent > 0)
+            if (aCmd.orderBehaviorParameters.profittakepercent > 0)
             {
-                order.invokeProfitTake(aCmd.profittakepercent);
+                order.invokeProfitTake(aCmd.orderBehaviorParameters.profittakepercent);
             }
             // set profit protect
-            if (aCmd.protectiontrigger > 0 & aCmd.protection > 0)
+            if (aCmd.orderBehaviorParameters.protectiontrigger > 0 & aCmd.orderBehaviorParameters.protection > 0)
             {
-                order.invokeProtector(aCmd.protectiontrigger, aCmd.protection);
+                order.invokeProtector(aCmd.orderBehaviorParameters.protectiontrigger, aCmd.orderBehaviorParameters.protection);
             }
         }
+
     }
 }

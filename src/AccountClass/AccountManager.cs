@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UtilityClass;
 
 namespace AccountClass
 {
@@ -44,6 +45,7 @@ namespace AccountClass
 
         private AccountManager()
         {
+
             
         }
 
@@ -58,42 +60,51 @@ namespace AccountClass
             {
                 accountFingerPrint.Add(realAccount);
             }
+
+            saveOnRedis();
         }
 
-        public void setFingerPrint(List<string> aFP)
+        private void saveOnRedis()
         {
-            foreach (string lstr in aFP)
-            {
-                accountFingerPrint.Add(lstr);
+            foreach(String aStr in accountFingerPrint){
+                RedisUtil.Instance.set("Account:"+aStr, "");
             }
         }
 
-        public  List<string> getAllValidAccount()
-        {
-            List<string> lrtn = new List<string>();
-            foreach (string lstr in accounts.Keys)
-            {
-                if (isValidAccount(lstr))
-                {
-                    lrtn.Add(lstr);
-                }
-            }
-            return lrtn;
-        }
+        //public void setFingerPrint(List<string> aFP)
+        //{
+        //    foreach (string lstr in aFP)
+        //    {
+        //        accountFingerPrint.Add(lstr);
+        //    }
+        //}
+
+        //public  List<string> getAllValidAccount()
+        //{
+        //    List<string> lrtn = new List<string>();
+        //    foreach (string lstr in accounts.Keys)
+        //    {
+        //        if (isValidAccount(lstr))
+        //        {
+        //            lrtn.Add(lstr);
+        //        }
+        //    }
+        //    return lrtn;
+        //}
 
 
-        public  List<string> getAccountByPattern(string aPattern)
-        {
-            List<string> lrtn = new List<string>();
-            foreach (string lstr in accounts.Keys)
-            {
-                if (lstr.Contains(aPattern))
-                {
-                    lrtn.Add(lstr);
-                }
-            }
-            return lrtn;
-        }
+        //public  List<string> getAccountByPattern(string aPattern)
+        //{
+        //    List<string> lrtn = new List<string>();
+        //    foreach (string lstr in accounts.Keys)
+        //    {
+        //        if (lstr.Contains(aPattern))
+        //        {
+        //            lrtn.Add(lstr);
+        //        }
+        //    }
+        //    return lrtn;
+        //}
 
         public  bool isRealAccount(string aAccount)
         {

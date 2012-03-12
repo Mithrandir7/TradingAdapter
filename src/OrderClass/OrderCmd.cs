@@ -2,33 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using OrderInformation;
 namespace OrderClass
 {
     public class OrderCmd
     {
-        public int orderid;
-        public string account;
-        public string symbol;
-        public int position = 0;
-        public bool daytrade = false;
-        public double profittakepercent = -9999;
-        public double protectiontrigger = -9999;
-        public double protection = -9999;
-        public double hardstop = -9999;
+        //basic information
+        public OrderInfo orderInfo;
+
+        //behavior parameters
+        public OrderBehaviorParameters orderBehaviorParameters;
+
+        //closed command
         public bool closed = false;
+
+        public OrderCmd()
+        {
+            orderInfo = new OrderInfo();
+            orderBehaviorParameters = new OrderBehaviorParameters();
+        }
 
         public string getInfo()
         {
-            return "OrderID:" + orderid + " / " +
-                "account:" + account + " / " +
-                "symbol:" + symbol + " / " +
-                "position:" + position + " / " +
-                "daytrade:" + daytrade + " / " +
-                "profittakepercent:" + profittakepercent + " / " +
-                "protectiontrigger:" + protectiontrigger + " / " +
-                "protection:" + protection + " / " +
-                "hardstop:" + hardstop;
+            return "OrderID:" + orderInfo.orderId + " / " +
+                "account:" + orderInfo.account + " / " +
+                "symbol:" + orderInfo.abbrName + " / " +
+                "position:" + orderInfo.position + " / " +
+                "daytrade:" + orderBehaviorParameters.daytrade + " / " +
+                "profittakepercent:" + orderBehaviorParameters.profittakepercent + " / " +
+                "protectiontrigger:" + orderBehaviorParameters.protectiontrigger + " / " +
+                "protection:" + orderBehaviorParameters.protection + " / " +
+                "hardstop:" + orderBehaviorParameters.hardstop;
         }
     }
 

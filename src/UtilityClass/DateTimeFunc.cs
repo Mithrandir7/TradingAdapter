@@ -44,5 +44,16 @@ namespace UtilityClass
             hhmmss = hh * 10000 + mm * 100 + ss;
             return (hhmmss);
         }
+
+        public static String DateTimeToString(DateTime aDateTime)
+        {
+            return aDateTime.ToString("yyyy-MM-dd HH:mm tt");
+        }
+
+        public static DateTime StringToDateTime(String aString)
+        {
+            return DateTime.ParseExact(aString, "yyyy-MM-dd HH:mm tt", null);
+        }
+
     }
 }

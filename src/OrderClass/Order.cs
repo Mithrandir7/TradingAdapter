@@ -28,10 +28,9 @@ namespace OrderClass
     {
         private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private int orderID;
-
         private OrderInfo orderinfo;
         private OrderTrackingInfo tracking;
+        private OrderBehaviorParameters behaviorPars;
 
         private OrderStatusReport orderStatusReport;
         private FilledOrderReport filledReport, closedFilledReport;
@@ -39,26 +38,24 @@ namespace OrderClass
         private bool activation = false;
 
         private int secondsForFilled = 5;
-        private OrderState state = OrderState.Unknown;
 
         private DayTrade daytrade;
         private ProfitTake profitTake;
         private Protector protector;
         private Hardstop hardstop;
 
-        public Order(int aOrderID, string account, string abbrname, int position)
+        public Order(OrderInfo aOrderInfo, 
+            OrderTrackingInfo aTracking, OrderBehaviorParameters aBehaviorPars)
         {
-            orderID = aOrderID;
-            orderinfo = new OrderInfo();
-            orderinfo.account = account;
-            orderinfo.abbrName = abbrname;
-            orderinfo.position = position;
-            orderinfo.orderId = orderID;
-            orderinfo.ICEID = SymbolManager.Instance.getTradeSymbol(abbrname, account);
-            orderinfo.userkey = UserkeyManager.UserkeyFactory.Instance.getUserkey();
-            orderinfo.closedUserkey = orderinfo.userkey + "_closed";
-            changeState(OrderState.WaitingSubmit);
-            tracking = new OrderTrackingInfo();
+            orderinfo = aOrderInfo;
+            behaviorPars = aBehaviorPars;
+            tracking = aTracking;
+            changeState(aTracking.orderState);
+
+            orderinfo.saveOnRedis();
+            behaviorPars.saveOnRedis();
+            tracking.saveOnRedis();
+
             daytrade = new DayTrade(this);
             profitTake = new ProfitTake(this);
             protector = new Protector(this);
@@ -72,14 +69,14 @@ namespace OrderClass
 
         private string getIdentifiString()
         {
-            return ("OrderID..." + orderID + "...");
+            return ("OrderID..." +  orderinfo.orderId + "...");
         }
 
         public void active()
         {
             if (!activation)
             {
-                logger.Info(getIdentifiString() + "userkey..." + orderinfo.userkey + "..activated");
+                logger.Info(getIdentifiString() + "userkey..." + orderinfo.getUserkey() + "..activated");
                 activation = true;
                 addOnAction();
             }
@@ -103,7 +100,7 @@ namespace OrderClass
         {
             if (activation)
             {
-                logger.Info(getIdentifiString() + "userkey..." + orderinfo.userkey + "..inActivated");
+                logger.Info(getIdentifiString() + "userkey..." + orderinfo.getUserkey() + "..inActivated");
                 activation = false;
                 removeOnAction();
             }
@@ -123,12 +120,12 @@ namespace OrderClass
                 return;
             }
 
-            if (state == OrderState.WaitingFilled)
+            if (tracking.orderState == OrderState.WaitingFilled)
             {
                 checkNonFilledLife();
             }
 
-            if (state == OrderState.Filled)
+            if (tracking.orderState == OrderState.Filled)
             {
                 updateTracking(aReport);
                 protector.check(aReport);
@@ -136,12 +133,12 @@ namespace OrderClass
                 profitTake.check(aReport);
                 hardstop.check(aReport);
             }
-            RedisOrderTrackingHandler.Instance.push(this);
+            
         }
 
         public int getOrderID()
         {
-            return orderID;
+            return orderinfo.orderId;
         }
 
         public OrderInfo getOrderInfo()
@@ -151,7 +148,7 @@ namespace OrderClass
 
         public OrderState getState()
         {
-            return state;
+            return tracking.orderState;
         }
 
         public string getAbbrName()
@@ -166,7 +163,7 @@ namespace OrderClass
 
         private void updateTracking(TickQuote aTick)
         {
-            if (state == OrderState.Filled)
+            if (tracking.orderState == OrderState.Filled)
             {
                 if (orderinfo.position > 0)
                 {
@@ -179,12 +176,13 @@ namespace OrderClass
                 tracking.currentProfitPercent = (tracking.currentProfit / tracking.entryPz);
                 tracking.maxrunup = Math.Max(tracking.maxrunup, tracking.currentProfit);
                 tracking.maxdrawdown = Math.Max(tracking.maxdrawdown, tracking.maxrunup - tracking.currentProfit);
+                tracking.saveOnRedis();
             }
         }
 
         private void checkNonFilledLife()
         {
-            if (state == OrderState.WaitingFilled)
+            if (tracking.orderState == OrderState.WaitingFilled)
             {
                 DateTime cancelTime = tracking.filledTime.AddSeconds(secondsForFilled);
                 if (DateTime.Now > cancelTime)
@@ -197,7 +195,7 @@ namespace OrderClass
 
         private void OnFilled(FilledOrderReport aReport)
         {
-            if (String.Compare(orderinfo.userkey, aReport.userkey) == 0)
+            if (String.Compare(orderinfo.getUserkey(), aReport.userkey) == 0)
             {
                 filledReport = aReport;
                 if (Convert.ToInt32(filledReport.filledNumber) == 1)
@@ -209,7 +207,7 @@ namespace OrderClass
                 }
             }
 
-            if (String.Compare(orderinfo.closedUserkey, aReport.userkey) == 0)
+            if (String.Compare(orderinfo.getUserkeyClosed(), aReport.userkey) == 0)
             {
                 closedFilledReport = aReport;
                 if (Convert.ToInt32(closedFilledReport.filledNumber) == 1)
@@ -220,16 +218,15 @@ namespace OrderClass
                     changeState(OrderState.Closed);
                 }
             }
-
-
         }
 
         private void OnOrder(OrderStatusReport aReport)
         {
-            if (String.Compare(orderinfo.userkey, aReport.userkey) == 0)
+            logger.Info(aReport.info());
+            if (String.Compare(orderinfo.getUserkey(), aReport.userkey) == 0)
             {
                 orderStatusReport = aReport;
-                if (state == OrderState.Submitted)
+                if (tracking.orderState == OrderState.Submitted)
                 {
                     if (String.Compare(aReport.status, "委托成功") == 0)
                     {
@@ -237,7 +234,7 @@ namespace OrderClass
                     }
                 }
 
-                if (state == OrderState.CancealOrder)
+                if (tracking.orderState == OrderState.CancealOrder)
                 {
                     if (String.Compare(aReport.status, "委托删单成功") == 0)
                     {
@@ -250,8 +247,9 @@ namespace OrderClass
 
         private void changeState(OrderState aState)
         {
-            logger.Info(getIdentifiString() + "userkey..." + orderinfo.userkey + ".from ." + state.ToString() + "..to.." + aState);
-            state = aState;
+            logger.Info(getIdentifiString() + "userkey..." + orderinfo.getUserkey() + ".from ." + tracking.orderState.ToString() + "..to.." + aState);
+            tracking.orderState = aState;
+            tracking.saveOnRedis();
         }
 
         public string getProfitTakeParStr()
@@ -276,7 +274,7 @@ namespace OrderClass
 
         public void fireOrder(string reason)
         {
-            if (state != OrderState.WaitingSubmit)
+            if (tracking.orderState != OrderState.WaitingSubmit)
             {
                 return;
             }
@@ -310,13 +308,13 @@ namespace OrderClass
                 pz = price - SymbolManager.Instance.getOb95Tick(orderinfo.abbrName) * ticksize;
             }
 
-            if (state != OrderState.GiveUp)
+            if (tracking.orderState != OrderState.GiveUp)
             {
                 logger.Info(getIdentifiString() + reason + " submitted an order");
                 TradeCenter.Instance.openFutureOrderLimit(orderinfo.account,
-                    orderinfo.ICEID, bsstring,
+                    orderinfo.getIceId(), bsstring,
                     Convert.ToString(pz),
-                    orderinfo.userkey);
+                    orderinfo.getUserkey());
                 logger.Info(getIdentifiString() + "order submit -> " + info());
             }
             else
@@ -336,7 +334,7 @@ namespace OrderClass
 
         public void closingOrder(string reason)
         {
-            if (state != OrderState.Filled)
+            if (tracking.orderState != OrderState.Filled)
             {
                 return;
             }
@@ -372,14 +370,14 @@ namespace OrderClass
                 pz = currTrade + SymbolManager.Instance.getOb99Tick(orderinfo.abbrName) * ticksize;
             }
 
-            if (state != OrderState.GiveUp)
+            if (tracking.orderState != OrderState.GiveUp)
             {
                 changeState(OrderState.WaitingClose);
                 tracking.closingTime = DateTime.Now;
                 TradeCenter.Instance.closeFutureOrderLimit(orderinfo.account,
-                    orderinfo.ICEID, bsstring,
+                    orderinfo.getIceId(), bsstring,
                     Convert.ToString(pz),
-                    orderinfo.closedUserkey);
+                    orderinfo.getUserkeyClosed());
                 logger.Info(getIdentifiString() + "order closing reason -> " + reason);
                 logger.Info(getIdentifiString() + "order closing submit -> " + info());
             }
@@ -387,7 +385,7 @@ namespace OrderClass
 
         private void cancel()
         {
-            if (state != OrderState.WaitingFilled)
+            if (tracking.orderState != OrderState.WaitingFilled)
             {
                 logger.Info(getIdentifiString() + "Cancel : Order is not in canceable state.");
                 return;

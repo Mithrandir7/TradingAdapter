@@ -81,6 +81,14 @@ namespace UtilityClass
             return long.Parse(lrtn);
         }
 
+        public bool getBool(String key)
+        {
+            byte[] gb = redisClient.Get(key);
+            String lrtn = UtilityClass.Misc.ByteArrayToString(gb);
+            return bool.Parse(lrtn);
+        }
+
+
         public int getInt(String key)
         {
             byte[] gb = redisClient.Get(key);

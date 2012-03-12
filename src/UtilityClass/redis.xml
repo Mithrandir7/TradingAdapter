@@ -3,5 +3,5 @@
   <redis-servers>
     <redis-server host="localhost" port="6379" />
   </redis-servers>
-  <saveQuoteOnServer value="false" />
+  <saveQuoteOnServer value="true" />
 </redis-config>

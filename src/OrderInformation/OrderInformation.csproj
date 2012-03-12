@@ -43,10 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderBehaviorParameters.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderState.cs" />
     <Compile Include="OrderTrackingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SymbolClass\SymbolClass.csproj">
+      <Project>{C0E3F18D-7577-4210-B479-205725F90E6D}</Project>
+      <Name>SymbolClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserkeyManager\UserkeyManager.csproj">
+      <Project>{C29DD967-7B4B-455E-92F2-5443AC40F00E}</Project>
+      <Name>UserkeyManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UtilityClass\UtilityClass.csproj">
+      <Project>{07199B31-5D4A-4F50-9AB6-3F9992370262}</Project>
+      <Name>UtilityClass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -74,34 +74,35 @@ namespace OrderClass
                     switch (key)
                     {
                         case "orderid":
-                            orderCmd.orderid = Convert.ToInt32(lArr[1]);
+                            orderCmd.orderInfo.orderId = Convert.ToInt32(lArr[1]);
+                            orderCmd.orderBehaviorParameters.orderId = orderCmd.orderInfo.orderId;
                             break;
                         case "account":
-                            orderCmd.account = lArr[1].Trim();
+                            orderCmd.orderInfo.account = lArr[1].Trim();
                             break;
                         case "symbol":
-                            orderCmd.symbol = lArr[1].ToLower().Trim();
+                            orderCmd.orderInfo.abbrName = lArr[1].ToLower().Trim();
                             break;
                         case "position":
-                            orderCmd.position = Convert.ToInt32(lArr[1]);
+                            orderCmd.orderInfo.position = Convert.ToInt32(lArr[1]);
                             break;
                         case "daytrade":
-                            orderCmd.daytrade = Convert.ToBoolean(lArr[1]);
+                            orderCmd.orderBehaviorParameters.daytrade = Convert.ToBoolean(lArr[1]);
                             break;
                         case "closed":
                             orderCmd.closed = Convert.ToBoolean(lArr[1]);
                             break;
                         case "profittakepercent":
-                            orderCmd.profittakepercent = Convert.ToDouble(lArr[1]);
+                            orderCmd.orderBehaviorParameters.profittakepercent = Convert.ToDouble(lArr[1]);
                             break;
                         case "protectiontrigger":
-                            orderCmd.protectiontrigger = Convert.ToDouble(lArr[1]);
+                            orderCmd.orderBehaviorParameters.protectiontrigger = Convert.ToDouble(lArr[1]);
                             break;
                         case "protection":
-                            orderCmd.protection = Convert.ToDouble(lArr[1]);
+                            orderCmd.orderBehaviorParameters.protection = Convert.ToDouble(lArr[1]);
                             break;
                         case "hardstop":
-                            orderCmd.hardstop = Convert.ToDouble(lArr[1]);
+                            orderCmd.orderBehaviorParameters.hardstop = Convert.ToDouble(lArr[1]);
                             break;
                         default:                            
                             break;
@@ -121,7 +122,7 @@ namespace OrderClass
 
         private bool orderCmdValidation(OrderCmd aCmd)
         {
-            bool isOrderExist = OrderManager.Instance.isOrderIDExist(aCmd.orderid);
+            bool isOrderExist = OrderManager.Instance.isOrderIDExist(aCmd.orderInfo.orderId);
 
             if (isOrderExist)
             {                               
@@ -129,17 +130,17 @@ namespace OrderClass
             }
             else
             {
-                if (Math.Abs(aCmd.position) != 1)
+                if (Math.Abs(aCmd.orderInfo.position) != 1)
                 {
                     return false;
                 }
 
-                if (!AccountClass.AccountManager.Instance.isValidAccount(aCmd.account))
+                if (!AccountClass.AccountManager.Instance.isValidAccount(aCmd.orderInfo.account))
                 {
                     return false;
                 }
 
-                if (!SymbolClass.SymbolManager.Instance.isValidSymbol(aCmd.symbol))
+                if (!SymbolClass.SymbolManager.Instance.isValidSymbol(aCmd.orderInfo.abbrName))
                 {
                     return false;
                 }

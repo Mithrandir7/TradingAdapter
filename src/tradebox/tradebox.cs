@@ -46,8 +46,8 @@ namespace tradebox
             TradeCenter.Instance.init();
             MarginMonitor.Instance.init();
             PositionMonitor.Instance.init();
-            OrderManager.Instance.init();
-            RandomEntryController.Instance.init();
+            OrderManager.Instance.init();           
+            //RandomEntryController.Instance.init();
          
             logger.Info("Working Directory : " + Misc.getWorkingDirectory());
 
