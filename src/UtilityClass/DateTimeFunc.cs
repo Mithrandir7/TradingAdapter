@@ -47,12 +47,12 @@ namespace UtilityClass
 
         public static String DateTimeToString(DateTime aDateTime)
         {
-            return aDateTime.ToString("yyyy-MM-dd HH:mm tt");
+            return aDateTime.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         public static DateTime StringToDateTime(String aString)
         {
-            return DateTime.ParseExact(aString, "yyyy-MM-dd HH:mm tt", null);
+            return DateTime.ParseExact(aString, "yyyy-MM-dd HH:mm:ss", null);
         }
 
     }

@@ -15,8 +15,6 @@ namespace tradebox
 {
     public class RandomEntryController
     {
-
-
         private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static RandomEntryController Instance = new RandomEntryController();
@@ -62,7 +60,6 @@ namespace tradebox
                     redisClient.PublishMessage(channelName,pair.Value);
                 }
             }
-
 
             foreach (int cmdrm in cmdExecuted)
             {
