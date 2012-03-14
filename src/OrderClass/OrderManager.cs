@@ -113,25 +113,31 @@ namespace OrderClass
 
         private void updateOrder(Order order, OrderCmd aCmd)
         {
+            
             // set hardstop
             if (aCmd.orderBehaviorParameters.hardstop > 0)
             {
                 order.invokeHardstop(aCmd.orderBehaviorParameters.hardstop);
+                logger.Info("updateOrder (orderId = " + order.getOrderID() + ") : invokeHardstop : " + aCmd.orderBehaviorParameters.hardstop);
             }
             // set daytrade
             if (aCmd.orderBehaviorParameters.daytrade)
             {
                 order.invokeDayTrade();
+                logger.Info("updateOrder (orderId = " + order.getOrderID() + ") : invokeDayTrade");
             }
             // set profit take
             if (aCmd.orderBehaviorParameters.profittakepercent > 0)
             {
                 order.invokeProfitTake(aCmd.orderBehaviorParameters.profittakepercent);
+                logger.Info("updateOrder (orderId = " + order.getOrderID() + ") : invokeProfitTake : " + aCmd.orderBehaviorParameters.profittakepercent);
             }
             // set profit protect
             if (aCmd.orderBehaviorParameters.protectiontrigger > 0 & aCmd.orderBehaviorParameters.protection > 0)
             {
                 order.invokeProtector(aCmd.orderBehaviorParameters.protectiontrigger, aCmd.orderBehaviorParameters.protection);
+                logger.Info("updateOrder (orderId = " + order.getOrderID() + ") : invokeProtector : " +
+                    aCmd.orderBehaviorParameters.protectiontrigger + "/" + aCmd.orderBehaviorParameters.protection);
             }
         }
 

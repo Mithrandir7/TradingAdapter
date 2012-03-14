@@ -36,7 +36,7 @@ namespace UserkeyManager
             else
             {
                 long cValue = UtilityClass.RedisUtil.Instance.getLong(dbkey);
-                retInt = retInt + 1;
+                retInt = cValue + 1;
                 UtilityClass.RedisUtil.Instance.set(dbkey, retInt.ToString());
             }
             return retInt;
