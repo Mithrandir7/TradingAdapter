@@ -72,11 +72,7 @@ namespace OrderInformation
             closedTime = DateTimeFunc.StringToDateTime(RedisUtil.Instance.get(getRedisHeader() + "closedTime"));
             closingTime = DateTimeFunc.StringToDateTime(RedisUtil.Instance.get(getRedisHeader() + "closingTime"));
 
-
         }
-
-
-
 
     }
 }

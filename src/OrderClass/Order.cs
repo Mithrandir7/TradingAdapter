@@ -232,6 +232,11 @@ namespace OrderClass
                     {
                         changeState(OrderState.WaitingFilled);
                     }
+
+                    if (String.Compare(aReport.status, "委托失败") == 0)
+                    {
+                        changeState(OrderState.OrderFailed);
+                    }
                 }
 
                 if (tracking.orderState == OrderState.CancealOrder)
