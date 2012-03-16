@@ -13,7 +13,7 @@ namespace OrderClass
         
         public static OrderManager Instance = new OrderManager();
 
-        private Dictionary<int, Order> orders = new Dictionary<int, Order>();
+        private Dictionary<int, Order> orders;
         
         private OrderManager()
         {
@@ -22,8 +22,14 @@ namespace OrderClass
 
         public void init()
         {
+            orders = new Dictionary<int, Order>();
             RedisOrderCmdHandler.Instance.init();
             loadOrderFromRedis();
+        }
+
+        public void ReInit()
+        {
+            init();
         }
 
         public bool isOrderIDExist(int aOrderID)

@@ -60,7 +60,7 @@ namespace tradebox
         private void setAutoShutdownTimer()
         {
             System.Timers.Timer myTimer = new System.Timers.Timer();
-            myTimer.Elapsed += new ElapsedEventHandler(AutoShutdownTask);
+            myTimer.Elapsed += new ElapsedEventHandler(HalfHourTask);
             myTimer.Interval = 30 * 60000;
             myTimer.Start();
         }
@@ -70,13 +70,18 @@ namespace tradebox
            
         }
 
-        private void AutoShutdownTask( object source, ElapsedEventArgs e )
+        private void HalfHourTask( object source, ElapsedEventArgs e )
         {
             int lhhmmss = DateTimeFunc.getHHMMSS();
             if (lhhmmss > TradeboxXmlReader.Instance.autoShutdownTime)
             {
                 Environment.Exit(0);                
-            }            
+            }   
+         
+            if((lhhmmss>80000)&(lhhmmss<90000))
+            {
+                OrderManager.Instance.ReInit();
+            }
         }
 
 
