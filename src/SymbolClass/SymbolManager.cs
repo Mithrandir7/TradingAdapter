@@ -28,6 +28,8 @@ namespace SymbolClass
         private  Dictionary<string, int> marketOpen = new Dictionary<string, int>();
         private  Dictionary<string, int> marketClose = new Dictionary<string, int>();
 
+        private List<String> abbrNameList = new List<string>();
+
         //ICE.C_CFFEX.IF.HOT
         public void init()
         {
@@ -74,6 +76,7 @@ namespace SymbolClass
                         tickSize.Add(abbrname, tSize);
                         ob95ticks.Add(abbrname, ob95);
                         ob99ticks.Add(abbrname, ob99);
+                        abbrNameList.Add(abbrname);
                     }
                     else
                     {
@@ -82,7 +85,22 @@ namespace SymbolClass
 
                 }
             }
+
+            pushToRedisDatabase();
         }
+
+        private void pushToRedisDatabase()
+        {
+            string header = "Symbols:";
+            foreach (String symbol in abbrNameList)
+            {
+                String key = header+symbol;
+                RedisUtil.Instance.set(key, " ");
+            }
+        }
+
+
+
         private SymbolManager()
         {
             
