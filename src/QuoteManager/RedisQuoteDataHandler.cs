@@ -21,7 +21,7 @@ namespace DataManager
         private RedisQuoteDataHandler()
         {
             redisUtility = RedisUtil.getNewInstance();
-            isSaveQuoteData = UtilityClass.RedisConfig.Instance.isSaveQuoteOnServer;
+            isSaveQuoteData = UtilityClass.RedisXmlReader.Instance.isSaveQuoteOnServer;
         }
 
 

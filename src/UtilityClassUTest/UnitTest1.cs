@@ -12,8 +12,8 @@ namespace UtilityClassUTest
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.AreEqual(RedisConfig.Instance.host, "localhost");
-            Assert.AreEqual(RedisConfig.Instance.port, 6379);
+            Assert.AreEqual(RedisXmlReader.Instance.host, "localhost");
+            Assert.AreEqual(RedisXmlReader.Instance.port, 6379);
         }
     }
 }

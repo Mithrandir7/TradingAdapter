@@ -8,17 +8,17 @@ using System.Windows.Forms;
 
 namespace UtilityClass
 {
-    public class RedisConfig
+    public class RedisXmlReader
     {
         private static string xmlFile = UtilityClass.Misc.getWorkingDirectory() + "/redis.xml";
 
-        public static RedisConfig Instance = new RedisConfig();
+        public static RedisXmlReader Instance = new RedisXmlReader();
 
         public String host = "localhost";
         public int port = 6793;
         public bool isSaveQuoteOnServer = false;
 
-        private RedisConfig(){
+        private RedisXmlReader(){
             init();
         }
 

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<symbols>
+  
+  <symbol quoteSymbol="CTP.CFFEX.IF.HOT" marketOpen="91500" marketClosed="151500" tickSize="0.2" OB95Ticks="2" OB99Ticks="3" />
+  <symbol quoteSymbol="CTP.DCE.y.HOT" marketOpen="90000" marketClosed="150000" tickSize="2" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.DCE.j.HOT" marketOpen="90000" marketClosed="150000" tickSize="1" OB95Ticks="1" OB99Ticks="2" />
+  <symbol quoteSymbol="CTP.DCE.m.HOT" marketOpen="90000" marketClosed="150000" tickSize="5" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.DCE.p.HOT" marketOpen="90000" marketClosed="150000" tickSize="1" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.DCE.a.HOT" marketOpen="90000" marketClosed="150000" tickSize="2" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.DCE.c.HOT" marketOpen="90000" marketClosed="150000" tickSize="1" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.DCE.v.HOT" marketOpen="90000" marketClosed="150000" tickSize="1" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.SHFE.rb.HOT" marketOpen="90000" marketClosed="150000" tickSize="5" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.SHFE.cu.HOT" marketOpen="90000" marketClosed="150000" tickSize="1" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.SHFE.au.HOT" marketOpen="90000" marketClosed="150000" tickSize="10" OB95Ticks="1" OB99Ticks="2" />
+  <symbol quoteSymbol="CTP.SHFE.ru.HOT" marketOpen="90000" marketClosed="150000" tickSize="0.01" OB95Ticks="3" OB99Ticks="7" />
+  <symbol quoteSymbol="CTP.SHFE.zn.HOT" marketOpen="90000" marketClosed="150000" tickSize="5" OB95Ticks="1" OB99Ticks="2" />
+  <symbol quoteSymbol="CTP.SHFE.al.HOT" marketOpen="90000" marketClosed="150000" tickSize="5" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.CZCE.CF.HOT" marketOpen="90000" marketClosed="150000" tickSize="5" OB95Ticks="1" OB99Ticks="2" />
+  <symbol quoteSymbol="CTP.CZCE.ER.HOT" marketOpen="90000" marketClosed="150000" tickSize="1" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.CZCE.WS.HOT" marketOpen="90000" marketClosed="150000" tickSize="1" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.CZCE.RO.HOT" marketOpen="90000" marketClosed="150000" tickSize="2" OB95Ticks="1" OB99Ticks="3" />
+  <symbol quoteSymbol="CTP.CZCE.TA.HOT" marketOpen="90000" marketClosed="150000" tickSize="2" OB95Ticks="1" OB99Ticks="1" />
+  <symbol quoteSymbol="CTP.CZCE.SR.HOT" marketOpen="90000" marketClosed="150000" tickSize="1" OB95Ticks="1" OB99Ticks="2" />
+  
+</symbols>
+

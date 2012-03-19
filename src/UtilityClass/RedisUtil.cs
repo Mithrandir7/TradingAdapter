@@ -24,7 +24,7 @@ namespace UtilityClass
 
         public static RedisClient getRedisClientInstance()
         {
-            return new RedisClient(RedisConfig.Instance.host,RedisConfig.Instance.port);
+            return new RedisClient(RedisXmlReader.Instance.host,RedisXmlReader.Instance.port);
         }
 
         
@@ -32,7 +32,7 @@ namespace UtilityClass
 
         private RedisUtil()
         {
-            redisClient = new RedisClient(RedisConfig.Instance.host, RedisConfig.Instance.port);            
+            redisClient = new RedisClient(RedisXmlReader.Instance.host, RedisXmlReader.Instance.port);            
    
         }
 

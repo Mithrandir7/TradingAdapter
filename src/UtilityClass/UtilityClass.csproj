@@ -59,7 +59,7 @@
     <Compile Include="DateTimeFunc.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedisConfig.cs" />
+    <Compile Include="RedisXmlReader.cs" />
     <Compile Include="RedisUtil.cs" />
   </ItemGroup>
   <ItemGroup>
