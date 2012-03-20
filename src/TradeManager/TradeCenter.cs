@@ -121,7 +121,7 @@ namespace TradeManager
             //throw new NotImplementedException();
             string luserkey;
 
-            logger.Info("OnInfo:" + nInfoType + "..." + nInfo);
+            //logger.Info("OnInfo:" + nInfoType + "..." + nInfo);
 
             switch (nInfoType)
             {

@@ -94,7 +94,9 @@ namespace OrderClass
                 if (orderTrackingInfo.orderState == OrderState.Filled)
                 {
                     order.active();
+                    order.behaviorReInit();
                 }
+
                 addOrder(order);
             }
         }
@@ -116,6 +118,9 @@ namespace OrderClass
             orders.Add(order.getOrderID(), order);
             UtilityClass.RedisUtil.Instance.set("OrderId:" + order.getOrderID().ToString().Trim(), "");
         }
+
+
+    
 
         private void updateOrder(Order order, OrderCmd aCmd)
         {

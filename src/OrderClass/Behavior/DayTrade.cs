@@ -11,6 +11,9 @@ namespace OrderClass
 
     public class DayTrade
     {
+
+        private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private Order order;
         private bool isEnable = false;
         private int daytradeHHMMSS;
@@ -48,12 +51,16 @@ namespace OrderClass
                     daytradeHHMMSS = SymbolManager.Instance.getDayTradeExitHHMMSS(order.getAbbrName());
                 }
             }
+
+            logger.Info("Order ID : " + order.getOrderID() +" : daytrade exit time set to " + daytradeHHMMSS);
         }
 
         public string getParStr()
         {
             return Convert.ToString(isEnable);
         }
+
+        private Boolean hasLogged = false;
 
         public void check(TickQuote aTick)
         {
@@ -62,10 +69,14 @@ namespace OrderClass
                 return;
             }
 
-            if (order.getState() == OrderState.Filled)
+            if (!hasLogged)
             {
-                
+                logger.Info("OrderId : " + order.getOrderID() + " : daytrade check enabled");
+                hasLogged = true;
+            }
 
+            if (order.getState() == OrderState.Filled)
+            {                
                 if (Convert.ToInt32(aTick.time) > daytradeHHMMSS)
                 {
                     order.closingOrder("Daytrade");

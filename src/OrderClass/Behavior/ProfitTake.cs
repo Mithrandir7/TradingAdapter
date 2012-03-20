@@ -9,6 +9,8 @@ namespace OrderClass
 {
     public class ProfitTake
     {
+        private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private Order order;
         private bool isEnable = false;
         private double percentTake = 1;
@@ -29,11 +31,19 @@ namespace OrderClass
             isEnable = true;
         }
 
+        private Boolean hasLogged = false;
+
         public void check(TickQuote aTick)
         {
             if (!isEnable)
             {
                 return;
+            }
+
+            if (!hasLogged)
+            {
+                logger.Info("OrderId : " + order.getOrderID() + " : profitTake check enabled");
+                hasLogged = true;
             }
 
             if (order.getState() == OrderState.Filled)

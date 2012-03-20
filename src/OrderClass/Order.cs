@@ -257,6 +257,17 @@ namespace OrderClass
             tracking.saveOnRedis();
         }
 
+        public void behaviorReInit()
+        {
+            if (behaviorPars.daytrade)
+            {
+                invokeDayTrade();
+            }
+            invokeHardstop(behaviorPars.hardstop);
+            invokeProfitTake(behaviorPars.profittakepercent);
+            invokeProtector(behaviorPars.protectiontrigger, behaviorPars.protection);
+        }
+
         public string getProfitTakeParStr()
         {
             return profitTake.getParStr();
