@@ -24,6 +24,7 @@ namespace DataManager
         {                        
         }
 
+
         public void init()
         {
             logger.Info("start QuoteAdapter...");
@@ -47,6 +48,12 @@ namespace DataManager
             {
                 logger.Info("subList is null");
             }
+        }
+
+
+        public string symbolLookup(string strPattern)
+        {            
+            return qc.SymbolLookup(strPattern);            
         }
 
         public void addOnTickAction(OnTickData anAction)
