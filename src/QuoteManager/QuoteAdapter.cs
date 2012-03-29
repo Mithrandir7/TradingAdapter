@@ -80,7 +80,7 @@ namespace DataManager
             }
 
             
-            connectionCheck();
+            //connectionCheck();
         }
 
 
