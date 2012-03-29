@@ -82,6 +82,10 @@
       <Project>{C0E3F18D-7577-4210-B479-205725F90E6D}</Project>
       <Name>SymbolClass</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TCMonitor\TouchanceMonitor.csproj">
+      <Project>{ECE0E41A-D6EE-4577-A31F-84F14E71B0F5}</Project>
+      <Name>TouchanceMonitor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TradeManager\TradeManager.csproj">
       <Project>{AB70DC3C-4F34-4122-B236-FDAFE28C01E5}</Project>
       <Name>TradeManager</Name>

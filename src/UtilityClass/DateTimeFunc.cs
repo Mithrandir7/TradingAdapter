@@ -55,5 +55,12 @@ namespace UtilityClass
             return DateTime.ParseExact(aString, "yyyy-MM-dd HH:mm:ss", null);
         }
 
+        public static int hhmmssDiff(int hhmmss, int hhmmssBase)
+        {
+            int lbegin = hhmmss2Secs(hhmmss);
+            int lbase = hhmmss2Secs(hhmmssBase);
+            return lbegin - lbase;
+        }
+
     }
 }

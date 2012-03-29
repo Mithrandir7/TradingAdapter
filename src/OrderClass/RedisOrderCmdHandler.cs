@@ -7,6 +7,7 @@ using AccountClass;
 using UtilityClass;
 using ServiceStack.Redis.Generic;
 using ServiceStack.Redis;
+using TCMonitor;
 
 namespace OrderClass
 {
@@ -115,7 +116,16 @@ namespace OrderClass
             if (orderCmdValidation(orderCmd))
             {
                 logger.Info("onOrderMsg ==> " + orderCmd.getInfo());
-                OrderManager.Instance.push(orderCmd);
+                //check touchance active or not
+
+                if (TCMonitor.TouchanceMonitor.Instance.isTouchanceExist())
+                {
+                    OrderManager.Instance.push(orderCmd);
+                }
+                else
+                {
+                    logger.Info("Touchance is not running in this machine, command ignored.");
+                }
             }
 
         }

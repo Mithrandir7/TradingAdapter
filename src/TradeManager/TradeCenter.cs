@@ -19,7 +19,7 @@ namespace TradeManager
         public static TradeCenter Instance = new TradeCenter();
 
         private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private TradeClass tc = new TradeClass();
+        private TradeClass tc;
 
         private int submitCount = 0;
 
@@ -45,18 +45,26 @@ namespace TradeManager
 
         public void init()
         {
-            tc.OnDisconnected += new _ITradeEvents_OnDisconnectedEventHandler(OnDisconnected);
-            tc.OnInfo += new _ITradeEvents_OnInfoEventHandler(OnInfo);
+            tc = new TradeClass();
+            tc.OnDisconnected += new _ITradeEvents_OnDisconnectedEventHandler(OnDisconnected);           
+            tc.OnInfo += new _ITradeEvents_OnInfoEventHandler(OnInfo);                        
+            DoConnect();
+        }
+
+        private bool DoConnect()
+        {
             int lrtn = tc.DoConnect();
             if (lrtn == 1)
             {
                 logger.Info("Trade connected.");
                 onConnected();
+                return true;
             }
             else
             {
                 logger.Info("Trade connection failed.");
-            }
+                return false;
+            }                   
         }
 
         private void onConnected()
@@ -120,6 +128,7 @@ namespace TradeManager
         {
             //throw new NotImplementedException();
             string luserkey;
+            
 
             //logger.Info("OnInfo:" + nInfoType + "..." + nInfo);
 
@@ -297,12 +306,14 @@ namespace TradeManager
         private void OnDisconnected()
         {
             //throw new NotImplementedException();
-            logger.Info("Disconnected");
+            logger.Info("TradeCenter(tradebox) Disconnected");
         }
 
         public void cancealFutureOrder(string aOrderNo)
         {
+            logger.Info("TradeClass toString() is "+tc.ToString());
             string orderInfo = "TYPE=R,QTY=0,ORDER_NO=" + aOrderNo;
+            init();
             tc.PlaceOrder(orderInfo);
             submitCount = submitCount + 1;
         }
@@ -310,6 +321,7 @@ namespace TradeManager
         public void openFutureOrderLimit(string account, string symbol,
                                 string buySell, string price, string userKey)
         {
+            logger.Info("TradeClass toString() is " + tc.ToString());
             int lot = 1;
             placeFutureOrder("O", account, symbol, buySell, price, lot, userKey);
         }
@@ -317,6 +329,7 @@ namespace TradeManager
         public void closeFutureOrderLimit(string account, string symbol,
                                 string buySell, string price, string userKey)
         {
+            logger.Info("TradeClass toString() is " + tc.ToString());
             int lot = 1;
             placeFutureOrder("C", account, symbol, buySell, price, lot, userKey);
         }
@@ -371,6 +384,10 @@ namespace TradeManager
                     ",day_Trade=" + dayTrade;
 
             logger.Info("PlaceOrder : orderInfo" + orderInfo);
+            //test code
+
+            init();
+
             tc.PlaceOrder(orderInfo);
             submitCount = submitCount + 1;
 

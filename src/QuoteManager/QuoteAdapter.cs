@@ -5,7 +5,8 @@ using System.Text;
 using TCEXTERNSIONQUOTEAPILib;
 using System.IO;
 using SymbolClass;
-
+using UtilityClass;
+using System.Timers;
 
 namespace DataManager
 {
@@ -20,14 +21,43 @@ namespace DataManager
         private QuoteClass qc;        
         private OnTickData onTick = null;
 
+        private int lastUpdateHHMMSS;
+
         private QuoteAdapter()
-        {                        
+        {
+            
         }
 
+        private void connectionCheck()
+        {
+            logger.Info("Start quote disconnection monitor...");
+            System.Timers.Timer myTimer = new System.Timers.Timer();
+            myTimer.Elapsed += new ElapsedEventHandler(HalfMinutTask);
+            myTimer.Interval = 30000;
+            myTimer.Start();
+        }
+
+        private void HalfMinutTask(object source, ElapsedEventArgs e)
+        {
+            int lhhmmss = DateTimeFunc.getHHMMSS();
+
+            if ((lhhmmss < 90000) & (lhhmmss > 153000))
+            {
+                return;
+            }
+
+            if (UtilityClass.DateTimeFunc.hhmmssDiff(lhhmmss,lastUpdateHHMMSS)>30)
+            {
+                logger.Info("Touchance quote seems disconnection...reconnected");
+                init();
+            }
+
+ 
+        }
 
         public void init()
         {
-            logger.Info("start QuoteAdapter...");
+            logger.Info("init QuoteAdapter...");
             qc = new QuoteClass();
             logger.Info("quoteClass Initialized...");
             qc.OnData += new _IQuoteEvents_OnDataEventHandler(OnData);
@@ -48,6 +78,9 @@ namespace DataManager
             {
                 logger.Info("subList is null");
             }
+
+            
+            connectionCheck();
         }
 
 
@@ -70,7 +103,7 @@ namespace DataManager
         {
             string lsymbol = qc.SymbolGetStringData(strSymbol, -1, 0);
             string labbrname = SymbolManager.Instance.getAbbrname(strSymbol);
-            double ltime = qc.SymbolGetValueData(strSymbol, -1, 2);
+            double lhhmmss = qc.SymbolGetValueData(strSymbol, -1, 2);
             double ltrade = qc.SymbolGetValueData(strSymbol, -1, 3) / 1000000;
             double lvolume = qc.SymbolGetValueData(strSymbol, -1, 4);
             double lbid = qc.SymbolGetValueData(strSymbol, -1, 30) / 1000000;
@@ -87,8 +120,13 @@ namespace DataManager
                 return;
             }
 
-            TickQuote atick = new TickQuote(labbrname, ltime, ltrade, lvolume, lbid, lask, loi);
+            lastUpdateHHMMSS = Convert.ToInt32(lhhmmss);
+
+            //logger.Info("tick time:" + lhhmmss);
+            TickQuote atick = new TickQuote(labbrname, lhhmmss, ltrade, lvolume, lbid, lask, loi);
+            
             //logger.Info(atick.info());
+            
             if (onTick == null)
             {
                 return;
@@ -111,7 +149,7 @@ namespace DataManager
 
         private void OnDisconnected()
         {
-            logger.Info("TC Disconnected");
+            logger.Info("TC Quote Disconnected");
         }
 
         private int GetType(String strSymbol)
