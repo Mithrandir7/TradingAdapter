@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using KGIbox;
 
-namespace IceGlobalTradeAPI
+namespace KGIBox
 {
     public partial class KGIBOX : Form
     {
@@ -158,65 +159,172 @@ namespace IceGlobalTradeAPI
         public KGIBOX()
         {
             InitializeComponent();
-        }
-
-        private int loginType = 1; //Using ROC ID
-        private string loginUrl = "http://frr.kgieworld.com.tw/its-bin/loginx.cgi";
-        private string serverHost = "frr.kgieworld.com.tw";//frr.kgieworld.com.tw
-        private int serverPort = 443;
-        private int encodingType = 1;
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int rtn;
-            tradeApi.CAPath = "";
-            tradeApi.CAPassword = "";
-            rtn = tradeApi.Login(loginType, loginUrl, serverHost,
-                serverPort, "", 0, "ICE", "iRealII", 
-                ROCID.Text, "", "", Password.Text, encodingType);
-            LogTextBox.AppendText("login:"+rtn);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //期貨下單
-           
-            object[] varData = new object[28];
-            varData[ORDER_ARGS_ROCID] = ROCID.Text;//user_身分證字號
-            varData[ORDER_ARGS_PASSWORD] = Password.Text;//user_password
-            varData[ORDER_ARGS_BRANCHID] = m_Branch;//分公司代號
-            varData[ORDER_ARGS_CUSTID] = m_Account;//帳號
-            varData[ORDER_ARGS_AGENTID] = m_AgentId;//AE代號
-            varData[ORDER_ARGS_SOURCE] = "IC";        //'來源別, IC指艾揚, 可任意填上2碼代碼,代表由何處下單
-            varData[ORDER_ARGS_ID] = textBox6.Text;//商品代號
-            varData[ORDER_ARGS_MTH] = textBox15.Text;//交易月份
-            varData[ORDER_ARGS_BS] = textBox7.Text;//BS
-            varData[ORDER_ARGS_PRICE_FLAG] = textBox10.Text;//限市價,市價=1,限價=0
-            varData[ORDER_ARGS_ODPRICE] = Convert.ToInt32(textBox11.Text)*1000;        //'委託價格需乘上1000, 末三位是小數位數
-            varData[ORDER_ARGS_ODQTY] = Convert.ToInt32(textBox12.Text);
-            varData[ORDER_ARGS_ODTYPE] = textBox8.Text;  //'ROD/IOC/FOK
-
-            varData[ORDER_ARGS_ODKEY] = textBox14.Text;  //'此筆下單的key, 每次下單必須有一個unique的key
-            varData[ORDER_ARGS_OPENCLOSE] = textBox13.Text;
             
+        }
+
+        private void init()
+        {
+            PrivateXMLReader.Instance.init();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            init();
+        }
+
+        private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private bool login()
+        {
+            tradeApi.CAType = int.Parse(PrivateXMLReader.Instance.getAttribute("CAType"));
+            tradeApi.NeedCA = bool.Parse(PrivateXMLReader.Instance.getAttribute("NeedCA"));
+            tradeApi.CAPath = PrivateXMLReader.Instance.getAttribute("CAPath");
+            tradeApi.CAPassword = PrivateXMLReader.Instance.getAttribute("CAPassword");
+
+            int loginType = int.Parse(PrivateXMLReader.Instance.getAttribute("loginType"));
+            string loginUrl = PrivateXMLReader.Instance.getAttribute("loginURL");
+            string serverHost = PrivateXMLReader.Instance.getAttribute("server");
+            int serverPort = int.Parse(PrivateXMLReader.Instance.getAttribute("port"));
+            int encodingType = int.Parse(PrivateXMLReader.Instance.getAttribute("encodingType"));
+            string company = PrivateXMLReader.Instance.getAttribute("company");
+            string product = PrivateXMLReader.Instance.getAttribute("product");
+            string ROCID = PrivateXMLReader.Instance.getAttribute("ROCID");
+            string password = PrivateXMLReader.Instance.getAttribute("password");
+
+            int rtn = tradeApi.Login(loginType, loginUrl, serverHost,
+                serverPort, "", 0, company, product,
+                ROCID, "", "", password, encodingType);
+
+            switch (rtn)
+            {
+                case 0:
+                    logger.Info("參數錯誤!");
+                    return false;
+                    
+                case 1:
+                    logger.Info("登入錯誤!");
+                    return false;
+                    
+                case 2:
+                    logger.Info("登入失敗!");
+                    return false;
+                    
+                case 3:
+                    logger.Info("登入中!");
+                    return true;
+ 
+                default:
+                    logger.Info("狀態不明!");
+                    return false;
+                    
+            }
+
+        }
+
+
+        private void Login_Click(object sender, EventArgs e)
+        {
+            login();
+        }
+
+        private void PlaceFutureOrder()
+        {
+            string ROCID = PrivateXMLReader.Instance.getAttribute("ROCID");
+            string password = PrivateXMLReader.Instance.getAttribute("password");
+
+            object[] varData = new object[28];
+
+            logger.Info("ROCID:" + ROCID);
+            varData[ORDER_ARGS_ROCID] = ROCID;//user_身分證字號
+
+            logger.Info("pass:" + password);
+            varData[ORDER_ARGS_PASSWORD] = password;//user_password
+
+            varData[ORDER_ARGS_BRANCHID] = m_Branch;//分公司代號
+            logger.Info("分公司代號:" + m_Branch);
+
+
+            varData[ORDER_ARGS_CUSTID] = m_Account;//帳號
+            logger.Info("帳號:" + m_Account);
+
+
+            varData[ORDER_ARGS_AGENTID] = m_AgentId;//AE代號
+            logger.Info("AE代號:" + m_AgentId);
+
+            varData[ORDER_ARGS_SOURCE] = "IC";        //'來源別, IC指艾揚, 可任意填上2碼代碼,代表由何處下單
+
+            varData[ORDER_ARGS_ID] = "FITX";//商品代號
+
+            varData[ORDER_ARGS_MTH] = "201204";//交易月份
+            
+            varData[ORDER_ARGS_BS] = "B";//BS
+            
+            varData[ORDER_ARGS_PRICE_FLAG] = "0";//限市價,市價=1,限價=0
+            
+            varData[ORDER_ARGS_ODPRICE] = 7500 * 1000;        //'委託價格需乘上1000, 末三位是小數位數
+            
+            varData[ORDER_ARGS_ODQTY] = 1;
+            
+            varData[ORDER_ARGS_ODTYPE] = "ROD";  //'ROD/IOC/FOK
+
+            varData[ORDER_ARGS_ODKEY] = "maxtest";  //'此筆下單的key, 每次下單必須有一個unique的key
+            
+            varData[ORDER_ARGS_OPENCLOSE] = "O";
+
             object Data = varData;
 
-            if (ndeedCAcheckedBox.Checked == false)
-                tradeApi.NeedCA = false;
-            else
-                tradeApi.NeedCA = true;
-            tradeApi.CAType = Convert.ToInt32(textBox23.Text);
-
+            logger.Info(Data.ToString());
+            
             int tmp = tradeApi.PlaceFutOrder2(Data);
+            
             MessageBox.Show(tmp.ToString());
         }
 
-        private void button3_Click(object sender, EventArgs e)
+
+        private void FuturePlaceOrder_Click(object sender, EventArgs e)
+        {
+            //期貨下單
+
+            PlaceFutureOrder();
+
+            //string ROCID = PrivateXMLReader.Instance.getAttribute("ROCID");
+            //string password = PrivateXMLReader.Instance.getAttribute("password");
+
+            //object[] varData = new object[28];
+            //varData[ORDER_ARGS_ROCID] = ROCID;//user_身分證字號
+            //varData[ORDER_ARGS_PASSWORD] = password;//user_password
+            //varData[ORDER_ARGS_BRANCHID] = m_Branch;//分公司代號
+            //varData[ORDER_ARGS_CUSTID] = m_Account;//帳號
+            //varData[ORDER_ARGS_AGENTID] = m_AgentId;//AE代號
+            //varData[ORDER_ARGS_SOURCE] = "IC";        //'來源別, IC指艾揚, 可任意填上2碼代碼,代表由何處下單
+            //varData[ORDER_ARGS_ID] = textBox6.Text;//商品代號
+            //varData[ORDER_ARGS_MTH] = textBox15.Text;//交易月份
+            //varData[ORDER_ARGS_BS] = textBox7.Text;//BS
+            //varData[ORDER_ARGS_PRICE_FLAG] = textBox10.Text;//限市價,市價=1,限價=0
+            //varData[ORDER_ARGS_ODPRICE] = Convert.ToInt32(textBox11.Text)*1000;        //'委託價格需乘上1000, 末三位是小數位數
+            //varData[ORDER_ARGS_ODQTY] = Convert.ToInt32(textBox12.Text);
+            //varData[ORDER_ARGS_ODTYPE] = textBox8.Text;  //'ROD/IOC/FOK
+
+            //varData[ORDER_ARGS_ODKEY] = textBox14.Text;  //'此筆下單的key, 每次下單必須有一個unique的key
+            //varData[ORDER_ARGS_OPENCLOSE] = textBox13.Text;
+            
+            //object Data = varData;
+
+     
+            //int tmp = tradeApi.PlaceFutOrder2(Data);
+            //MessageBox.Show(tmp.ToString());
+        }
+
+        private void StockPlaceOrder_Click(object sender, EventArgs e)
         {
             //證券下單
+
+            string ROCID = PrivateXMLReader.Instance.getAttribute("ROCID");
+            string password = PrivateXMLReader.Instance.getAttribute("password");
+
             object[] varData = new object[24];
-            varData[ORDER_ARGS_ROCID] = ROCID.Text;//user_身分證字號
-            varData[ORDER_ARGS_PASSWORD] = Password.Text;//user_password
+            varData[ORDER_ARGS_ROCID] = ROCID;//user_身分證字號
+            varData[ORDER_ARGS_PASSWORD] = password;//user_password
             varData[ORDER_ARGS_BRANCHID] = m_Branch;//分公司代號
             varData[ORDER_ARGS_CUSTID] = m_Account;//帳號
             varData[ORDER_ARGS_AGENTID] = m_AgentId;//AE代號
@@ -237,28 +345,31 @@ namespace IceGlobalTradeAPI
             else
                 tradeApi.NeedCA = true;
 
-            tradeApi.CAType = Convert.ToInt32(textBox23.Text);
 
             int tmp = tradeApi.PlaceStkOrder2(Data);
             MessageBox.Show(tmp.ToString());
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            logout();
+        }
+
+        private void logout()
         {
             tradeApi.Logout();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            tradeApi.CAType = Convert.ToInt32(textBox23.Text);
-        }
-
-        private void button6_Click(object sender, EventArgs e)
+        private void FutureForiegn_Click(object sender, EventArgs e)
         {
             //國外期貨下單
+            
+            string ROCID = PrivateXMLReader.Instance.getAttribute("ROCID");
+            string password = PrivateXMLReader.Instance.getAttribute("password");
+
             object[] varData = new object[28];
-            varData[ORDER_ARGS_ROCID] = ROCID.Text;//user_身分證字號
-            varData[ORDER_ARGS_PASSWORD] = Password.Text;//user_password
+            varData[ORDER_ARGS_ROCID] = ROCID;//user_身分證字號
+            varData[ORDER_ARGS_PASSWORD] = password;//user_password
             varData[ORDER_ARGS_BRANCHID] = m_Branch;//分公司代號
             varData[ORDER_ARGS_CUSTID] = m_Account;//帳號
             varData[ORDER_ARGS_AGENTID] = m_AgentId;//AE代號
@@ -283,19 +394,22 @@ namespace IceGlobalTradeAPI
             else
                 tradeApi.NeedCA = true;
 
-            tradeApi.CAType = Convert.ToInt32(textBox23.Text);
 
             int tmp = tradeApi.PlaceOBFutOrder2(Data);
             MessageBox.Show(tmp.ToString());
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void OptionPlaceOrder_Click(object sender, EventArgs e)
         {
             
             //選擇權下單
+
+            string ROCID = PrivateXMLReader.Instance.getAttribute("ROCID");
+            string password = PrivateXMLReader.Instance.getAttribute("password");
+
             object[] varData = new object[28];
-            varData[ORDER_ARGS_ROCID] = ROCID.Text;//user_身分證字號
-            varData[ORDER_ARGS_PASSWORD] = Password.Text;//user_password
+            varData[ORDER_ARGS_ROCID] = ROCID;//user_身分證字號
+            varData[ORDER_ARGS_PASSWORD] = password;//user_password
             varData[ORDER_ARGS_BRANCHID] = m_Branch;//分公司代號
             varData[ORDER_ARGS_CUSTID] = m_Account;//帳號
             varData[ORDER_ARGS_AGENTID] = m_AgentId;//AE代號
@@ -318,15 +432,18 @@ namespace IceGlobalTradeAPI
                 tradeApi.NeedCA = false;
             else
                 tradeApi.NeedCA = true;
-            tradeApi.CAType = Convert.ToInt32(textBox23.Text);
 
             int tmp = tradeApi.PlaceOptOrder2(Data);
             MessageBox.Show(tmp.ToString());
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void CancealOrder_Click(object sender, EventArgs e)
         {
             //刪單
+
+            string ROCID = PrivateXMLReader.Instance.getAttribute("ROCID");
+            string password = PrivateXMLReader.Instance.getAttribute("password");
+
             int nType = -1;
             int nIndex = -1;
             if (textBox24.Text.Trim() != "")
@@ -343,8 +460,8 @@ namespace IceGlobalTradeAPI
                 if ((nType >= 0) && (nIndex >= 0))
                 {
                     object[] varData = new object[34];
-                    varData[ORDER_ARGS_ROCID] = ROCID.Text;
-                    varData[ORDER_ARGS_PASSWORD] = Password.Text; ;
+                    varData[ORDER_ARGS_ROCID] = ROCID;
+                    varData[ORDER_ARGS_PASSWORD] = password; ;
                     varData[ORDER_ARGS_BRANCHID]=  tradeApi.GetReportString(nType, nIndex, BRANCH_ID);
                     varData[ORDER_ARGS_CUSTID] =  tradeApi.GetReportString(nType, nIndex, CUST_ID);
                     varData[ORDER_ARGS_AGENTID] = m_AgentId;
@@ -429,21 +546,24 @@ namespace IceGlobalTradeAPI
             }
         }
 
-        private void axICETRADEAPI1_ConnectStatusChanged(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_ConnectStatusChangedEvent e)
+        private void OnConnectStatusChanged(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_ConnectStatusChangedEvent e)
         {
+            logger.Info("OnConnectStatusChanged");
+
             string nStatus = e.nStatus.ToString().Trim();
-            string tmp = "";
+            
             if (nStatus == "0")
             {
-                LogTextBox.AppendText("離線\n");
+                logger.Info("離線\n");
             }
             else if (nStatus == "1")
             {
-                LogTextBox.AppendText("連線中\n");
+                logger.Info("連線中\n");
             }
             else//
             {
-                LogTextBox.AppendText("連線成功\n");
+                logger.Info("連線成功\n");
+
                 //'連線完成, 跟API取得帳號                                
                 tradeApi.OrdSubPrefix = "OrdTW";
                 tradeApi.OBOrdSubPrefix = "OrdOB";
@@ -453,11 +573,19 @@ namespace IceGlobalTradeAPI
                 m_OBOrderRow = 0;
                 m_OBDealRow = 0;
 
-                for (int i = 0; i < tradeApi.GetDataCount(ITS_REPORT_LOGIN_OK); i++)
+                string accountType = "";
+
+                int dataCount = tradeApi.GetDataCount(ITS_REPORT_LOGIN_OK);
+                logger.Info("OnConnectStatusChanged : dataCount = " + dataCount);
+
+                for (int i = 0; i < dataCount; i++)
                 {
                     //'取得帳號type, S:證券帳號   F:期權帳號
-                    tmp = tradeApi.GetString(1, i, ACCOUNT_TYPE);
-                    if (tmp == "S") //現貨
+                    accountType = tradeApi.GetString(1, i, ACCOUNT_TYPE);
+
+                    logger.Info("account type : "+ accountType);
+
+                    if (accountType == "S") //現貨
                     {
                         //'登入取帳號時, 有以下欄位資料可取得
                         //'取得分公司號
@@ -468,9 +596,11 @@ namespace IceGlobalTradeAPI
                         m_StkName = tradeApi.GetString(ITS_REPORT_LOGIN_OK, i, CUST_NAME);
                         //'取得營業員
                         m_StkAgentId = tradeApi.GetString(ITS_REPORT_LOGIN_OK, i, AGENT_ID);
-                        LogTextBox.AppendText("分公司代號=" + m_StkBranch + "\n" + "股票帳號=" + m_StkAccount + "\n" + "帳號名稱=" + m_StkName + "\n" + "營業員=" + m_StkAgentId + "\n");
+
+                        logger.Info("分公司代號=" + m_StkBranch + "\n" + "股票帳號=" + m_StkAccount + "\n" + "帳號名稱=" + m_StkName + "\n" + "營業員=" + m_StkAgentId + "\n");
                         //'MsgBox "STK Account : " + m_StkBranch + "-" + m_StkAccount
                         //'帳號取得後, 跟STFY_API要求訂閱回補委回成回資料
+
                         if (checkBox2.Checked == false)
                             tradeApi.SubscribeByAccount(12, m_Branch, m_Account);
                         tradeApi.SubscribeByAccount(0, m_StkBranch, m_StkAccount);
@@ -486,9 +616,11 @@ namespace IceGlobalTradeAPI
                         m_Name = tradeApi.GetString(ITS_REPORT_LOGIN_OK, i, CUST_NAME);
                         //    '取得營業員
                         m_AgentId = tradeApi.GetString(ITS_REPORT_LOGIN_OK, i, AGENT_ID);
-                        LogTextBox.AppendText("分公司代號=" + m_Branch + "\n" + "期貨帳號=" + m_Account + "\n" + "帳號名稱=" + m_Name + "\n" + "營業員=" + m_AgentId + "\n");
+
+                        logger.Info("分公司代號=" + m_Branch + "\n" + "期貨帳號=" + m_Account + "\n" + "帳號名稱=" + m_Name + "\n" + "營業員=" + m_AgentId + "\n");
                         //    'MsgBox "FUT Account : " + m_Branch + "-" + m_Account
                         //    '帳號取得後, 要求訂閱回補委回成回資料
+
                         if (checkBox2.Checked == false)
                             tradeApi.SubscribeByAccount(12, m_Branch, m_Account);
                         tradeApi.SubscribeByAccount(0, m_Branch, m_Account);
@@ -498,7 +630,7 @@ namespace IceGlobalTradeAPI
             }
         }
 
-        private void axICETRADEAPI1_NewDealReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_NewDealReportEvent e)
+        private void OnNewDealReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_NewDealReportEvent e)
         {
             TRptData tmpRptData = new TRptData();
             tmpRptData.nIndex = e.nDataIndex;
@@ -517,7 +649,7 @@ namespace IceGlobalTradeAPI
             m_DealRow = m_DealRow + 1;
         }
 
-        private void axICETRADEAPI1_NewOrderReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_NewOrderReportEvent e)
+        private void OnNewOrderReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_NewOrderReportEvent e)
         {
             TRptData tmpRptData = new TRptData();
             tmpRptData.nIndex = e.nDataIndex;
@@ -543,7 +675,7 @@ namespace IceGlobalTradeAPI
             m_OrderRow = m_OrderRow + 1;
         }
 
-        private void axICETRADEAPI1_OBChgDealReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OBChgDealReportEvent e)
+        private void OnOBChangeDealReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OBChgDealReportEvent e)
         {
             int Row;
             foreach (TRptData tmpRptData in m_OBDealReport)
@@ -564,7 +696,7 @@ namespace IceGlobalTradeAPI
             }
         }
 
-        private void axICETRADEAPI1_OBChgOrderReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OBChgOrderReportEvent e)
+        private void OnOBChangeOrderReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OBChgOrderReportEvent e)
         {
             int Row;
             LogTextBox.AppendText("chg\n");
@@ -590,7 +722,7 @@ namespace IceGlobalTradeAPI
             }
         }
 
-        private void axICETRADEAPI1_OBNewDealReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OBNewDealReportEvent e)
+        private void OnOBNewDealReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OBNewDealReportEvent e)
         {
             TRptData tmpRptData = new TRptData();
             tmpRptData.nIndex = e.nDataIndex;
@@ -609,7 +741,7 @@ namespace IceGlobalTradeAPI
             m_OBDealRow = m_OBDealRow + 1;
         }
 
-        private void axICETRADEAPI1_OBNewOrderReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OBNewOrderReportEvent e)
+        private void OnOBNewOrderReport(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OBNewOrderReportEvent e)
         {
             TRptData tmpRptData = new TRptData();
             tmpRptData.nIndex = e.nDataIndex;
@@ -640,9 +772,9 @@ namespace IceGlobalTradeAPI
             LogTextBox.AppendText("OB RestoreComplete Trigger\n");
         }
 
-        private void axICETRADEAPI1_OnError(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OnErrorEvent e)
+        private void OnError(object sender, AxICETRADEAPILib._DICETRADEAPIEvents_OnErrorEvent e)
         {
-            LogTextBox.AppendText(e.errCode.ToString() + ":" + e.errMsg + '\n');
+            logger.Info(e.errCode.ToString() + ":" + e.errMsg + '\n');
         }
 
         private void axICETRADEAPI1_OrdRestoreComplete(object sender, EventArgs e)
@@ -650,10 +782,12 @@ namespace IceGlobalTradeAPI
             LogTextBox.AppendText("RestoreComplete Trigger\n");
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void KGIBOX_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            logger.Info("logout!");
+            logout();
         }
+
 
     }
 }

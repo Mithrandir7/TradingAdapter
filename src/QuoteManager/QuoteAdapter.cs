@@ -51,8 +51,6 @@ namespace DataManager
                 logger.Info("Touchance quote seems disconnection...reconnected");
                 init();
             }
-
- 
         }
 
         public void init()

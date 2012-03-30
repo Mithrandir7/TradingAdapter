@@ -1,4 +1,4 @@
-﻿namespace IceGlobalTradeAPI
+﻿namespace KGIBox
 {
     partial class KGIBOX
     {
@@ -29,28 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KGIBOX));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox26 = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.textBox25 = new System.Windows.Forms.TextBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.textBox22 = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.ndeedCAcheckedBox = new System.Windows.Forms.CheckBox();
-            this.loginButton = new System.Windows.Forms.Button();
-            this.Password = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.ROCID = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.LogTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button7 = new System.Windows.Forms.Button();
             this.textBox24 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.textBox23 = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
             this.textBox21 = new System.Windows.Forms.TextBox();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -137,8 +120,12 @@
             this.Column35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column37 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.loginButton = new System.Windows.Forms.Button();
+            this.ndeedCAcheckedBox = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tradeApi = new AxICETRADEAPILib.AxICETRADEAPI();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -149,156 +136,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tradeApi)).BeginInit();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.textBox26);
-            this.groupBox1.Controls.Add(this.label25);
-            this.groupBox1.Controls.Add(this.label24);
-            this.groupBox1.Controls.Add(this.textBox25);
-            this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.textBox22);
-            this.groupBox1.Controls.Add(this.label21);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.ndeedCAcheckedBox);
-            this.groupBox1.Controls.Add(this.loginButton);
-            this.groupBox1.Controls.Add(this.Password);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.ROCID);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(11, 13);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(300, 192);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "登入資訊";
-            // 
-            // textBox26
-            // 
-            this.textBox26.Location = new System.Drawing.Point(209, 132);
-            this.textBox26.Name = "textBox26";
-            this.textBox26.PasswordChar = '*';
-            this.textBox26.Size = new System.Drawing.Size(76, 22);
-            this.textBox26.TabIndex = 43;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(162, 137);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(41, 12);
-            this.label25.TabIndex = 42;
-            this.label25.Text = "CAPwd";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(10, 132);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(41, 12);
-            this.label24.TabIndex = 41;
-            this.label24.Text = "CAPath";
-            // 
-            // textBox25
-            // 
-            this.textBox25.Location = new System.Drawing.Point(56, 129);
-            this.textBox25.Name = "textBox25";
-            this.textBox25.Size = new System.Drawing.Size(96, 22);
-            this.textBox25.TabIndex = 40;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(65, 169);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(72, 16);
-            this.checkBox2.TabIndex = 39;
-            this.checkBox2.Text = "是否回補";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // textBox22
-            // 
-            this.textBox22.Location = new System.Drawing.Point(209, 101);
-            this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new System.Drawing.Size(76, 22);
-            this.textBox22.TabIndex = 12;
-            this.textBox22.Text = "1";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(152, 107);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(53, 12);
-            this.label21.TabIndex = 11;
-            this.label21.Text = "編碼方式";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(223, 161);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(71, 25);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "離線";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // ndeedCAcheckedBox
-            // 
-            this.ndeedCAcheckedBox.AutoSize = true;
-            this.ndeedCAcheckedBox.Checked = true;
-            this.ndeedCAcheckedBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ndeedCAcheckedBox.Location = new System.Drawing.Point(6, 169);
-            this.ndeedCAcheckedBox.Name = "ndeedCAcheckedBox";
-            this.ndeedCAcheckedBox.Size = new System.Drawing.Size(64, 16);
-            this.ndeedCAcheckedBox.TabIndex = 38;
-            this.ndeedCAcheckedBox.Text = "NeedCA";
-            this.ndeedCAcheckedBox.UseVisualStyleBackColor = true;
-            // 
-            // loginButton
-            // 
-            this.loginButton.Location = new System.Drawing.Point(148, 163);
-            this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(71, 23);
-            this.loginButton.TabIndex = 9;
-            this.loginButton.Text = "連線";
-            this.loginButton.UseVisualStyleBackColor = true;
-            this.loginButton.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Password
-            // 
-            this.Password.Location = new System.Drawing.Point(85, 101);
-            this.Password.Name = "Password";
-            this.Password.PasswordChar = '*';
-            this.Password.Size = new System.Drawing.Size(66, 22);
-            this.Password.TabIndex = 8;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 107);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "登入密碼";
-            // 
-            // ROCID
-            // 
-            this.ROCID.Location = new System.Drawing.Point(85, 73);
-            this.ROCID.Name = "ROCID";
-            this.ROCID.Size = new System.Drawing.Size(200, 22);
-            this.ROCID.TabIndex = 6;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 81);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 12);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "身份證字號";
             // 
             // LogTextBox
             // 
@@ -313,8 +153,6 @@
             this.groupBox2.Controls.Add(this.button7);
             this.groupBox2.Controls.Add(this.textBox24);
             this.groupBox2.Controls.Add(this.label23);
-            this.groupBox2.Controls.Add(this.textBox23);
-            this.groupBox2.Controls.Add(this.label22);
             this.groupBox2.Controls.Add(this.textBox21);
             this.groupBox2.Controls.Add(this.textBox20);
             this.groupBox2.Controls.Add(this.label20);
@@ -366,7 +204,7 @@
             this.button7.TabIndex = 41;
             this.button7.Text = "刪單";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.CancealOrder_Click);
             // 
             // textBox24
             // 
@@ -383,23 +221,6 @@
             this.label23.Size = new System.Drawing.Size(39, 12);
             this.label23.TabIndex = 39;
             this.label23.Text = "OrdNO";
-            // 
-            // textBox23
-            // 
-            this.textBox23.Location = new System.Drawing.Point(402, 124);
-            this.textBox23.Name = "textBox23";
-            this.textBox23.Size = new System.Drawing.Size(69, 22);
-            this.textBox23.TabIndex = 37;
-            this.textBox23.Text = "17";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(315, 127);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(45, 12);
-            this.label22.TabIndex = 36;
-            this.label22.Text = "CAType";
             // 
             // textBox21
             // 
@@ -443,7 +264,7 @@
             this.button6.TabIndex = 31;
             this.button6.Text = "國外期貨下單";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button6.Click += new System.EventHandler(this.FutureForiegn_Click);
             // 
             // button5
             // 
@@ -453,7 +274,7 @@
             this.button5.TabIndex = 30;
             this.button5.Text = "選擇權下單";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.OptionPlaceOrder_Click);
             // 
             // button4
             // 
@@ -463,7 +284,7 @@
             this.button4.TabIndex = 29;
             this.button4.Text = "期貨下單";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.FuturePlaceOrder_Click);
             // 
             // button3
             // 
@@ -473,7 +294,7 @@
             this.button3.TabIndex = 28;
             this.button3.Text = "證券下單";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.StockPlaceOrder_Click);
             // 
             // textBox19
             // 
@@ -1082,26 +903,81 @@
             this.Column37.Name = "Column37";
             this.Column37.Width = 80;
             // 
-            // axICETRADEAPI1
+            // loginButton
+            // 
+            this.loginButton.Location = new System.Drawing.Point(148, 163);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.Size = new System.Drawing.Size(71, 23);
+            this.loginButton.TabIndex = 9;
+            this.loginButton.Text = "連線";
+            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.Login_Click);
+            // 
+            // ndeedCAcheckedBox
+            // 
+            this.ndeedCAcheckedBox.AutoSize = true;
+            this.ndeedCAcheckedBox.Checked = true;
+            this.ndeedCAcheckedBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ndeedCAcheckedBox.Location = new System.Drawing.Point(6, 169);
+            this.ndeedCAcheckedBox.Name = "ndeedCAcheckedBox";
+            this.ndeedCAcheckedBox.Size = new System.Drawing.Size(64, 16);
+            this.ndeedCAcheckedBox.TabIndex = 38;
+            this.ndeedCAcheckedBox.Text = "NeedCA";
+            this.ndeedCAcheckedBox.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(223, 161);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(71, 25);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "離線";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Logout_Click);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(65, 169);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(72, 16);
+            this.checkBox2.TabIndex = 39;
+            this.checkBox2.Text = "是否回補";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.ndeedCAcheckedBox);
+            this.groupBox1.Controls.Add(this.loginButton);
+            this.groupBox1.Location = new System.Drawing.Point(11, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(300, 192);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "登入資訊";
+            // 
+            // tradeApi
             // 
             this.tradeApi.Enabled = true;
             this.tradeApi.Location = new System.Drawing.Point(202, 0);
-            this.tradeApi.Name = "axICETRADEAPI1";
-            this.tradeApi.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axICETRADEAPI1.OcxState")));
+            this.tradeApi.Name = "tradeApi";
+            this.tradeApi.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("tradeApi.OcxState")));
             this.tradeApi.Size = new System.Drawing.Size(43, 19);
             this.tradeApi.TabIndex = 6;
-            this.tradeApi.ConnectStatusChanged += new AxICETRADEAPILib._DICETRADEAPIEvents_ConnectStatusChangedEventHandler(this.axICETRADEAPI1_ConnectStatusChanged);
-            this.tradeApi.OnError += new AxICETRADEAPILib._DICETRADEAPIEvents_OnErrorEventHandler(this.axICETRADEAPI1_OnError);
+            this.tradeApi.ConnectStatusChanged += new AxICETRADEAPILib._DICETRADEAPIEvents_ConnectStatusChangedEventHandler(this.OnConnectStatusChanged);
+            this.tradeApi.OnError += new AxICETRADEAPILib._DICETRADEAPIEvents_OnErrorEventHandler(this.OnError);
             this.tradeApi.OrdRestoreComplete += new System.EventHandler(this.axICETRADEAPI1_OrdRestoreComplete);
-            this.tradeApi.NewOrderReport += new AxICETRADEAPILib._DICETRADEAPIEvents_NewOrderReportEventHandler(this.axICETRADEAPI1_NewOrderReport);
+            this.tradeApi.NewOrderReport += new AxICETRADEAPILib._DICETRADEAPIEvents_NewOrderReportEventHandler(this.OnNewOrderReport);
             this.tradeApi.ChgOrderReport += new AxICETRADEAPILib._DICETRADEAPIEvents_ChgOrderReportEventHandler(this.axICETRADEAPI1_ChgOrderReport);
-            this.tradeApi.NewDealReport += new AxICETRADEAPILib._DICETRADEAPIEvents_NewDealReportEventHandler(this.axICETRADEAPI1_NewDealReport);
+            this.tradeApi.NewDealReport += new AxICETRADEAPILib._DICETRADEAPIEvents_NewDealReportEventHandler(this.OnNewDealReport);
             this.tradeApi.ChgDealReport += new AxICETRADEAPILib._DICETRADEAPIEvents_ChgDealReportEventHandler(this.axICETRADEAPI1_ChgDealReport);
             this.tradeApi.OBOrdRestoreComplete += new System.EventHandler(this.axICETRADEAPI1_OBOrdRestoreComplete);
-            this.tradeApi.OBNewOrderReport += new AxICETRADEAPILib._DICETRADEAPIEvents_OBNewOrderReportEventHandler(this.axICETRADEAPI1_OBNewOrderReport);
-            this.tradeApi.OBChgOrderReport += new AxICETRADEAPILib._DICETRADEAPIEvents_OBChgOrderReportEventHandler(this.axICETRADEAPI1_OBChgOrderReport);
-            this.tradeApi.OBNewDealReport += new AxICETRADEAPILib._DICETRADEAPIEvents_OBNewDealReportEventHandler(this.axICETRADEAPI1_OBNewDealReport);
-            this.tradeApi.OBChgDealReport += new AxICETRADEAPILib._DICETRADEAPIEvents_OBChgDealReportEventHandler(this.axICETRADEAPI1_OBChgDealReport);
+            this.tradeApi.OBNewOrderReport += new AxICETRADEAPILib._DICETRADEAPIEvents_OBNewOrderReportEventHandler(this.OnOBNewOrderReport);
+            this.tradeApi.OBChgOrderReport += new AxICETRADEAPILib._DICETRADEAPIEvents_OBChgOrderReportEventHandler(this.OnOBChangeOrderReport);
+            this.tradeApi.OBNewDealReport += new AxICETRADEAPILib._DICETRADEAPIEvents_OBNewDealReportEventHandler(this.OnOBNewDealReport);
+            this.tradeApi.OBChgDealReport += new AxICETRADEAPILib._DICETRADEAPIEvents_OBChgDealReportEventHandler(this.OnOBChangeDealReport);
             // 
             // KGIBOX
             // 
@@ -1115,9 +991,8 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "KGIBOX";
             this.Text = "KGIBOX";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KGIBOX_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1129,6 +1004,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tradeApi)).EndInit();
             this.ResumeLayout(false);
 
@@ -1136,13 +1013,6 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox ROCID;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox Password;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.RichTextBox LogTextBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label6;
@@ -1198,11 +1068,6 @@
         private System.Windows.Forms.TextBox textBox20;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox textBox22;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.CheckBox ndeedCAcheckedBox;
-        private System.Windows.Forms.TextBox textBox23;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox textBox24;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Button button7;
@@ -1226,7 +1091,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column28;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column29;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column38;
-        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -1240,11 +1104,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataType;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataIndex;
-        private System.Windows.Forms.TextBox textBox26;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox textBox25;
         private AxICETRADEAPILib.AxICETRADEAPI tradeApi;
+        private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.CheckBox ndeedCAcheckedBox;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

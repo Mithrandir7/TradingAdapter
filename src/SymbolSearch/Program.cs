@@ -12,31 +12,30 @@ namespace SymbolSearch
         static void Main(string[] args)
         {
 
-            //if (args.Length != 2)
-            //{
-            //    Console.WriteLine("Usage : SymbolSearch <pattern> <output-xml-file>");
-            //    return;
-            //}
-
-
             QuoteAdapter.Instant.init();
-            //string outString = QuoteAdapter.Instant.symbolLookup(args[0]);
+
+
+           
+
+        }
+
+        static void  saveTWSSymbol(){
             string outString = QuoteAdapter.Instant.symbolLookup("TWS");
             string[] arr = outString.Split(';');
 
-        
+
 
             //using (XmlWriter writer = XmlWriter.Create(args[1]))
             using (XmlWriter writer = XmlWriter.Create("tws.xml"))
             {
                 writer.WriteStartDocument();
-        
+
                 writer.WriteStartElement("Symbols");
-    
+
 
                 foreach (string ls in arr)
-                {                    
-                    string [] datum = ls.Split(',');
+                {
+                    string[] datum = ls.Split(',');
 
                     if (datum.Length == 3)
                     {
@@ -51,16 +50,16 @@ namespace SymbolSearch
                             writer.WriteAttributeString("exchange", datum[2]);
                             writer.WriteEndElement();
                             writer.WriteString("\n");
-                        }             
-                                                        
+                        }
+
                     }
 
                 }
 
                 writer.WriteEndElement();
-  
+
                 writer.WriteEndDocument();
-          
+
             }
 
             Console.WriteLine("tws id with 4 characters saved at tws.xml");
