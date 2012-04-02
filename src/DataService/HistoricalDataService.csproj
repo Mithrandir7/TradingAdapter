@@ -62,8 +62,6 @@
     <Compile Include="DataService.Designer.cs">
       <DependentUpon>DataService.cs</DependentUpon>
     </Compile>
-    <Compile Include="MongoTXO.cs" />
-    <Compile Include="MongoUtility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -89,6 +87,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HistoricalData\HistoricalData.csproj">
+      <Project>{8B786AA3-8FFD-4458-8719-70FE0F94B295}</Project>
+      <Name>HistoricalData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuoteManager\DataManager.csproj">
       <Project>{785FA548-66D6-4B97-B0F2-F0A9D32398EB}</Project>
       <Name>DataManager</Name>

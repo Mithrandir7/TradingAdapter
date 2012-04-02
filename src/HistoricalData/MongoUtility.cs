@@ -5,7 +5,7 @@ using System.Text;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace DataService
+namespace HistoricalData
 {
     public class MongoUtility
     {
@@ -33,10 +33,6 @@ namespace DataService
 
 
 
-        public ~MongoUtility()
-        {
-
-        }
 
 
     }

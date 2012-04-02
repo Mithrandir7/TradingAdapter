@@ -29,6 +29,12 @@ namespace UtilityClass
             return (dt.Day + 100 * dt.Month + 10000 * dt.Year);
         }
 
+        public static int getYesterdayYYYYMMDD()
+        {
+            DateTime dt = DateTime.Now.AddDays(-1);
+            return (dt.Day + 100 * dt.Month + 10000 * dt.Year);
+        }
+
         public static int getHHMMSS()
         {
             DateTime dt = DateTime.Now;

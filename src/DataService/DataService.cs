@@ -7,7 +7,9 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using log4net;
-using DataManager;
+using SymbolSearch;
+using Tickdata;
+using HistoricalData;
 
 namespace DataService
 {
@@ -18,6 +20,7 @@ namespace DataService
         public DataService()
         {
             InitializeComponent();
+      
             MongoTXO.Instance.init();
             
         }
@@ -30,8 +33,13 @@ namespace DataService
 
         private void doWork()
         {
-        
-        }   
+
+        }
+
+        private List<Symbol> getTXOSymbols()
+        {
+            return SymbolSearch.SymbolSearch.Instance.getTXOSymbols();
+        }
 
         protected override void OnStop()
         {

@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kgibox", "kgibox\kgibox.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoricalDataService", "DataService\HistoricalDataService.csproj", "{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoricalData", "HistoricalData\HistoricalData.csproj", "{8B786AA3-8FFD-4458-8719-70FE0F94B295}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TradeSolution.vsmdi
@@ -347,6 +349,18 @@ Global
 		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|x64.ActiveCfg = Release|x86
 		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|x86.ActiveCfg = Release|x86
 		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|x86.Build.0 = Release|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Debug|x64.ActiveCfg = Debug|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Debug|x86.ActiveCfg = Debug|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Debug|x86.Build.0 = Debug|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Release|Any CPU.ActiveCfg = Release|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Release|x64.ActiveCfg = Release|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Release|x86.ActiveCfg = Release|x86
+		{8B786AA3-8FFD-4458-8719-70FE0F94B295}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

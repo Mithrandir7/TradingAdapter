@@ -86,7 +86,6 @@ namespace Tickdata
                                 //Console.WriteLine(lyyyymmdd + "," + lhh + lmm + lss + "," + lo + "," + hi + "," + lvol);                                
                             }
 
-
                             lyyyymmdd = ldataArr[0].Trim();
                             lhhmmss = ldataArr[1].Trim();
                             lhh = lhhmmss.Substring(0, 2);
