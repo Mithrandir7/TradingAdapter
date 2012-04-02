@@ -15,7 +15,15 @@ namespace HistoricalData
         static void Main(string[] args)
         {            
             MongoTXO.Instance.init();
-            MongoTXO.Instance.updateYestoday();            
+
+            if (args.Length==0)
+            {
+                MongoTXO.Instance.updateYestoday();
+            }
+            else if (args.Length == 1)
+            {
+                MongoTXO.Instance.updateTXO(args[0].Trim());
+            }
         }        
     }
 }
