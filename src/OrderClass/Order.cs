@@ -106,7 +106,7 @@ namespace OrderClass
             }
         }
 
-        private void OnTick(TickQuote aReport)
+        private void OnTick(TickQuoteCn aReport)
         {
             if (!activation)
             {
@@ -161,7 +161,7 @@ namespace OrderClass
             return tracking;
         }
 
-        private void updateTracking(TickQuote aTick)
+        private void updateTracking(TickQuoteCn aTick)
         {
             if (tracking.orderState == OrderState.Filled)
             {

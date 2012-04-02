@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataManager
 {
-    public class TickQuote
+    public class TickQuoteCn
     {
         public string abbrname;
         public double time;
@@ -24,7 +24,7 @@ namespace DataManager
             return (lstr);
         }
 
-        public TickQuote(string aAbbrname, double atime, double atrade, double avolume, double abid, double aask, double aoi)
+        public TickQuoteCn(string aAbbrname, double atime, double atrade, double avolume, double abid, double aask, double aoi)
         {
             abbrname = aAbbrname;
             time = atime;

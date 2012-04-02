@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "delstrategy", "delstrategy\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twfexpire", "twfexpire\twfexpire.csproj", "{013EEB62-9351-465D-96E6-7775B48CAB38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tickdata", "tickdata\tickdata.csproj", "{E394A406-583D-4AA3-9FE8-D76523E211C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tickdata", "tickdata\Tickdata.csproj", "{E394A406-583D-4AA3-9FE8-D76523E211C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tradebox", "tradebox\tradebox.csproj", "{4E36F789-8304-4B3B-87A5-3634CBCFF799}"
 EndProject
@@ -51,6 +51,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolSearch", "SymbolSearch\SymbolSearch.csproj", "{DBD29783-75B0-4CD1-A4E7-DD0A11AD85FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kgibox", "kgibox\kgibox.csproj", "{3CDD5218-B86C-4475-BD63-2861B01558A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoricalDataService", "DataService\HistoricalDataService.csproj", "{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -333,6 +335,18 @@ Global
 		{3CDD5218-B86C-4475-BD63-2861B01558A3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3CDD5218-B86C-4475-BD63-2861B01558A3}.Release|x64.ActiveCfg = Release|Any CPU
 		{3CDD5218-B86C-4475-BD63-2861B01558A3}.Release|x86.ActiveCfg = Release|Any CPU
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Debug|x64.ActiveCfg = Debug|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Debug|x86.ActiveCfg = Debug|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Debug|x86.Build.0 = Debug|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|Any CPU.ActiveCfg = Release|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|x64.ActiveCfg = Release|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|x86.ActiveCfg = Release|x86
+		{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

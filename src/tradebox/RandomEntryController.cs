@@ -42,7 +42,7 @@ namespace tradebox
         }
 
 
-        private void OnTick(TickQuote aReport)
+        private void OnTick(TickQuoteCn aReport)
         {
             //logger.Info("Ontick:" + aReport.time);
             // cmds execute by tick;

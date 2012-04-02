@@ -112,7 +112,7 @@ namespace DataManager
             }
         }
 
-        public void push(TickQuote aTick)
+        public void push(TickQuoteCn aTick)
         {
             int intTime = Convert.ToInt32(aTick.time);
 

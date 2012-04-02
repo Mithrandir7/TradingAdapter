@@ -12,7 +12,7 @@ namespace DataManager
 {
     public class QuoteAdapter
     {
-        public delegate void OnTickData(TickQuote aReport);
+        public delegate void OnTickData(TickQuoteCn aReport);
 
         public static QuoteAdapter Instant = new QuoteAdapter();
 
@@ -121,7 +121,7 @@ namespace DataManager
             lastUpdateHHMMSS = Convert.ToInt32(lhhmmss);
 
             //logger.Info("tick time:" + lhhmmss);
-            TickQuote atick = new TickQuote(labbrname, lhhmmss, ltrade, lvolume, lbid, lask, loi);
+            TickQuoteCn atick = new TickQuoteCn(labbrname, lhhmmss, ltrade, lvolume, lbid, lask, loi);
             
             //logger.Info(atick.info());
             

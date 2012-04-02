@@ -39,7 +39,7 @@ namespace DataManager
             }
         }
 
-        public void OnTickAction(TickQuote atick)
+        public void OnTickAction(TickQuoteCn atick)
         {
             SymbolData ldatainfo = getDataInfo(atick.abbrname);
             //logger.Info("push data into dataInfo..." + atick.abbrname + "..." + ldatainfo.getAbbrname());

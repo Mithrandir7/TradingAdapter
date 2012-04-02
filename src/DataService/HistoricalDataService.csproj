@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E394A406-583D-4AA3-9FE8-D76523E211C3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{5C92AACF-FE36-4F23-AEA6-13B4C00DD8BC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tickdata</RootNamespace>
-    <AssemblyName>Tickdata</AssemblyName>
+    <RootNamespace>DataService</RootNamespace>
+    <AssemblyName>DataService</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\..\..\lib\MongoDB-CSharpDriver-1.4.0.4468\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -42,35 +45,62 @@
       <HintPath>..\..\..\lib\MongoDB-CSharpDriver-1.4.0.4468\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttributeTable.cs" />
-    <Compile Include="PrivateXMLReader.cs" />
+    <Compile Include="DataService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataService.Designer.cs">
+      <DependentUpon>DataService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MongoTXO.cs" />
+    <Compile Include="MongoUtility.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TickData.cs" />
-    <Compile Include="TickQuoteTw.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="private.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UtilityClass\UtilityClass.csproj">
-      <Project>{07199B31-5D4A-4F50-9AB6-3F9992370262}</Project>
-      <Name>UtilityClass</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="DataService.resx">
+      <DependentUpon>DataService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Log4Net.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuoteManager\DataManager.csproj">
+      <Project>{785FA548-66D6-4B97-B0F2-F0A9D32398EB}</Project>
+      <Name>DataManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SymbolSearch\SymbolSearch.csproj">
+      <Project>{DBD29783-75B0-4CD1-A4E7-DD0A11AD85FE}</Project>
+      <Name>SymbolSearch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tickdata\Tickdata.csproj">
+      <Project>{E394A406-583D-4AA3-9FE8-D76523E211C3}</Project>
+      <Name>Tickdata</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

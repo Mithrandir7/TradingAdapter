@@ -36,7 +36,7 @@ namespace OrderClass
 
         private Boolean hasLogged = false;
 
-        public void check(TickQuote aTick)
+        public void check(TickQuoteCn aTick)
         {
             if (!isEnable)
             {

@@ -48,7 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedisQuoteDataHandler.cs" />
     <Compile Include="SymbolData.cs" />
-    <Compile Include="TickQuote.cs" />
+    <Compile Include="TickQuoteCn.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SymbolClass\SymbolClass.csproj">

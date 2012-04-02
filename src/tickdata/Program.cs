@@ -6,8 +6,9 @@ using System.IO;
 using System.Net;
 using System.ComponentModel;
 using System.Collections;
+using UtilityClass;
 
-namespace tickdata
+namespace Tickdata
 {
     class Program
     {
@@ -48,71 +49,15 @@ namespace tickdata
                 symbol = symbol.Replace("opt", "ICE.TWF.TXO");
             }
 
+            TickData.Instance.init();
 
-            string url = "http://mis.touchance.com/t.fcgi?s=" + yyyymmdd + "00&e=" + yyyymmdd + "23&p=" + symbol.ToUpper();
+            List<TickQuoteTw> quotes = TickData.Instance.getQuotes(symbol, yyyymmdd);
 
-            string lrtn = getTick(url);
-
-            string[] rtnArray = lrtn.Split('\n');
-
-            string lyyyymmdd="";
-            string lhhmmss = "000000";
-            string lhh="";
-            string lmm="";
-            string lss="";            
-            double lpz=-1;
-            double hi=-9999;
-            double lo=9999;
-            double lvol=0;
-
-            foreach (string s in rtnArray)
+            foreach (TickQuoteTw q in quotes)
             {
-                if(s.IndexOf("DATE")<0){
-                    if (s.IndexOf('#') < 0)
-                    {
-                        string [] ldataArr = s.Split(',');
-
-                        if (String.Compare(lhhmmss, ldataArr[1].Trim()) == 0)
-                        {
-                            lpz = Convert.ToDouble(ldataArr[2].Trim());
-                            hi = Math.Max(hi, lpz);
-                            lo = Math.Min(lo, lpz);
-                            lvol = lvol + Convert.ToDouble(ldataArr[3].Trim());
-                        }
-                        else
-                        {
-                            if(lpz>0){
-                                Console.WriteLine(lyyyymmdd + "," + lhh + lmm + lss + "," + lo+","+ hi + "," + lvol);
-                            }
-                            
-
-                            lyyyymmdd = ldataArr[0].Trim();
-                            lhhmmss = ldataArr[1].Trim();
-                            lhh = lhhmmss.Substring(0, 2);
-                            lmm = lhhmmss.Substring(2, 2);
-                            lss = lhhmmss.Substring(4, 2);
-                            lhh = Convert.ToString(Convert.ToInt32(lhh) + 8);
-                            lpz = Convert.ToDouble(ldataArr[2].Trim());
-                            hi = lpz;
-                            lo = lpz;
-                            lvol = Convert.ToDouble(ldataArr[3].Trim());
-                        }
-                        
-
-                        
-                    }                    
-                }
-            }           
-
+                Console.WriteLine(DateTimeFunc.DateTimeToString(q.datetime) + "," + q.high + "," + q.low + "," + q.volume);
+            }
         }
 
-        static string getTick(string url)
-        {
-            Uri URI = new Uri(url);
-            System.Net.WebRequest req = System.Net.WebRequest.Create(URI);
-            System.Net.WebResponse resp = req.GetResponse();
-            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-            return sr.ReadToEnd().Trim();
-        }
     }
 }
