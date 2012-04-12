@@ -10,7 +10,7 @@ namespace DataManager
     {
         private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private Dictionary<string, SymbolData> datum = new Dictionary<string, SymbolData>();
+        private Dictionary<string, SymbolData> datum;
 
         public static DataCenter Instance = new DataCenter();
 
@@ -22,6 +22,7 @@ namespace DataManager
         public void init()
         {
             List<string> abbrList = SymbolManager.Instance.getAbbrnameList();
+            datum = new Dictionary<string, SymbolData>();            
             foreach (string abbrname in abbrList)
             {
                 //logger.Info(abbrname + " in dataCenter...");

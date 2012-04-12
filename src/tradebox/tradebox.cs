@@ -22,6 +22,9 @@ using MarginClass;
 using PositionClass;
 using OrderClass;
 using TCMonitor;
+using ServiceStack.Redis.Generic;
+using ServiceStack.Redis;
+using System.Threading;
 
 namespace tradebox
 {
@@ -29,12 +32,44 @@ namespace tradebox
     {
 
         private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-   
+
+        private string channelname = "tradeboxReInit";
+        private string[] channelnames = { "tradeboxReInit" };
+        private RedisClient redisClient;
+
         public tradebox()
         {
             InitializeComponent();
+            redisClient = RedisUtil.getRedisClientInstance();
+            ThreadPool.QueueUserWorkItem(new WaitCallback(doSub)); 
+            init();            
+        }
 
+        private void doSub(object parameter)
+        {
+            IRedisSubscription subClient = redisClient.CreateSubscription();
+            subClient.OnSubscribe += new Action<string>(onSub);
+            subClient.OnMessage += new Action<string, string>(onOrderMsg);
+            subClient.SubscribeToChannels(channelnames);
+        }
 
+        private void onSub(string channel)
+        {
+            logger.Info("onSubMsg : channel = #" + channel + "#");
+        }
+
+        private void onOrderMsg(string channel, string value)
+        {
+            if (String.Compare(channel, channelnames[0]) != 0)
+            {
+                return;
+            }
+            logger.Info("onOrderMsg : "+channelname+" message recieved = " + value);
+            init();
+        }
+
+        public void init()
+        {
             TouchanceMonitor.Instance.init();
             TouchanceMonitor.Instance.ifTouchanceNotExistCloseApplication();
 
@@ -46,10 +81,10 @@ namespace tradebox
             TradeCenter.Instance.init();
             MarginMonitor.Instance.init();
             PositionMonitor.Instance.init();
-            OrderManager.Instance.init();           
+            OrderManager.Instance.init();
 
             //RandomEntryController.Instance.init();
-         
+
             logger.Info("Working Directory : " + Misc.getWorkingDirectory());
 
             if (TradeboxXmlReader.Instance.isAutoShutdown)

@@ -19,14 +19,14 @@ namespace SymbolClass
         public static SymbolXmlReader Instance = new SymbolXmlReader();
 
 
-        public List<string> quoteSymbolList = new List<string>();
-        public Dictionary<string, string> abbr2Symbol = new Dictionary<string, string>();
-        public Dictionary<string, double> tickSize = new Dictionary<string, double>();
-        public Dictionary<string, int> ob95ticks = new Dictionary<string, int>();
-        public Dictionary<string, int> ob99ticks = new Dictionary<string, int>();
-        public Dictionary<string, int> marketOpen = new Dictionary<string, int>();
-        public Dictionary<string, int> marketClose = new Dictionary<string, int>();
-        public List<String> abbrNameList = new List<string>();
+        public List<string> quoteSymbolList;
+        public Dictionary<string, string> abbr2Symbol;
+        public Dictionary<string, double> tickSize;
+        public Dictionary<string, int> ob95ticks;
+        public Dictionary<string, int> ob99ticks;
+        public Dictionary<string, int> marketOpen;
+        public Dictionary<string, int> marketClose;
+        public List<String> abbrNameList;
 
         private SymbolXmlReader()
         {           
@@ -35,6 +35,15 @@ namespace SymbolClass
 
         public void init()
         {
+            quoteSymbolList = new List<string>();
+            abbr2Symbol = new Dictionary<string, string>();
+            tickSize = new Dictionary<string, double>();
+            ob95ticks = new Dictionary<string, int>();
+            ob99ticks = new Dictionary<string, int>();
+            marketOpen = new Dictionary<string, int>();
+            marketClose = new Dictionary<string, int>();
+            abbrNameList = new List<string>();
+
             if (!isXmlConfigFileExist())
             {
                 MessageBox.Show(xmlFile + " not found.");

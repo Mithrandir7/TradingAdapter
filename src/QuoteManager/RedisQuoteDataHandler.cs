@@ -28,12 +28,13 @@ namespace DataManager
 
         public void insertQuote(string symbol, int hhmmss, double hi, double lo, int vol, int oi)
         {
+            string key = symbol + ":" + yyyymmdd.ToString().Trim() + ":" + hhmmss.ToString().Trim();
+            redisUtility.set("QuoteUpdatedTime", key);
+
             if (!isSaveQuoteData)
             {
                 return;
-            }
-
-            string key = symbol + ":" + yyyymmdd.ToString().Trim() + ":" + hhmmss.ToString().Trim();
+            }                       
             //Console.WriteLine("key insert " + key);
             redisUtility.Hset(key, Misc.StrToByteArray("h"), Misc.StrToByteArray(String.Format("{0:F2}", hi)));
             redisUtility.Hset(key, Misc.StrToByteArray("l"), Misc.StrToByteArray(String.Format("{0:F2}", lo)));
