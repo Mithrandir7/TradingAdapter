@@ -313,7 +313,7 @@ namespace TradeManager
         {
             logger.Info("TradeClass toString() is "+tc.ToString());
             string orderInfo = "TYPE=R,QTY=0,ORDER_NO=" + aOrderNo;
-            init();
+            //init();
             tc.PlaceOrder(orderInfo);
             submitCount = submitCount + 1;
         }
@@ -386,7 +386,7 @@ namespace TradeManager
             logger.Info("PlaceOrder : orderInfo" + orderInfo);
             //test code
 
-            init();
+            //init();
 
             tc.PlaceOrder(orderInfo);
             submitCount = submitCount + 1;
